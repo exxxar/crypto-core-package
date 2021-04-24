@@ -1,5 +1,5 @@
 {
-    "name": "crypto-core/main",
+    "name": "cryptolib/crypto-core",
     "description": "Core crypto lib",
     "type": "library",
     "license": "mit",
