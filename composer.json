@@ -1,0 +1,31 @@
+{
+    "name": "crypto-core/main",
+    "description": "Core crypto lib",
+    "type": "library",
+    "license": "mit",
+    "authors": [
+        {
+            "name": "Aleksey Gukai",
+            "email": "exxxar@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "symfony/http-client": "^5.2",
+        "ext-json": "*"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CryptoCore\\CryptoCoreServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+
+    "autoload": {
+        "psr-4": {
+            "CryptoCore\\": "src/"
+        }
+    }
+}
