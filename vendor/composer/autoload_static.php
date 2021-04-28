@@ -4,32 +4,92 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2977a0a8b4b76cc8a5309b47f2990e31
+class ComposerStaticInitfa1d4bca3e0e22f29028c8813ba7e305
 {
+    public static $files = array (
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Php80\\' => 23,
+            'Symfony\\Polyfill\\Php73\\' => 23,
+            'Symfony\\Contracts\\Service\\' => 26,
+            'Symfony\\Contracts\\HttpClient\\' => 29,
+            'Symfony\\Component\\HttpClient\\' => 29,
+        ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+            'Psr\\Container\\' => 14,
+        ),
         'C' => 
         array (
-            'CryptoCore\\' => 11,
+            'Cryptolib\\CryptoCore\\' => 21,
+        ),
+        'B' => 
+        array (
+            'Buonzz\\Template\\' => 16,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'CryptoCore\\' => 
+        'Symfony\\Polyfill\\Php80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+        ),
+        'Symfony\\Polyfill\\Php73\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
+        ),
+        'Symfony\\Contracts\\Service\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/service-contracts',
+        ),
+        'Symfony\\Contracts\\HttpClient\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/http-client-contracts',
+        ),
+        'Symfony\\Component\\HttpClient\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/http-client',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Cryptolib\\CryptoCore\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Buonzz\\Template\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/core-cryptolib/cryptointerface/src',
         ),
     );
 
     public static $classMap = array (
+        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
+        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2977a0a8b4b76cc8a5309b47f2990e31::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2977a0a8b4b76cc8a5309b47f2990e31::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2977a0a8b4b76cc8a5309b47f2990e31::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitfa1d4bca3e0e22f29028c8813ba7e305::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitfa1d4bca3e0e22f29028c8813ba7e305::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitfa1d4bca3e0e22f29028c8813ba7e305::$classMap;
 
         }, null, ClassLoader::class);
     }

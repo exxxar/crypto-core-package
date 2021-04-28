@@ -5,6 +5,7 @@ namespace CryptoCore\Classes;
 
 use CryptoCore\Forms\TransferDataForm;
 use CryptoCore\Forms\TransferForm;
+use Symfony\Component\HttpClient\CurlHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class UserPayloadServiceForServer
@@ -13,9 +14,9 @@ class UserPayloadServiceForServer
 
     protected $url;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct()
     {
-        $this->client = $client;
+        $this->client = new CurlHttpClient();
         $this->url = config("crypto.url");
     }
 

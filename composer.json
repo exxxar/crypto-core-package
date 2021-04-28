@@ -12,7 +12,8 @@
     "require": {
         "php": ">=7.1",
         "symfony/http-client": "^5.2",
-        "ext-json": "*"
+        "ext-json": "*",
+        "core-cryptolib/cryptointerface": "9999999-dev"
     },
     "extra": {
         "laravel": {

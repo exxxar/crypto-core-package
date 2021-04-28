@@ -4,6 +4,11 @@ namespace Cryptolib\CryptoCore\Controllers;
 
 use App\Http\Controllers\Controller;
 use CryptoCore\Models\Connection;
+use CryptoCore\Models\Resources\ConnectionCollection;
+use CryptoCore\Models\Resources\ConnectionResource;
+use CryptoCore\Requests\ConnectionStoreRequest;
+use CryptoCore\Requests\ConnectionUpdateRequest;
+use Cryptolib\CryptoCore\Exceptions\ResponseStatusException;
 use Illuminate\Http\Request;
 
 class ConnectionController extends Controller
@@ -11,15 +16,20 @@ class ConnectionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return ConnectionCollection
      */
     public function index()
     {
-        //
+        $connections = Connection::all();
 
-        return response()->json([
-           "test"=>"Data"
-        ]);
+        return new ConnectionCollection($connections);
+    }
+
+    public function active()
+    {
+        $connections = Connection::where("active", true)->get();
+
+        return new ConnectionCollection($connections);
     }
 
     /**
@@ -29,62 +39,101 @@ class ConnectionController extends Controller
      */
     public function create()
     {
-        //
+        return response()->noContent();
     }
+
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return ConnectionResource
+     * @throws ResponseStatusException
      */
-    public function store(Request $request)
+    public function store(ConnectionStoreRequest $request)
     {
-        //
+        $connection = Connection::where("device_id", $request->device_id)
+            ->where("user_id", $request->user_id)
+            ->where("active", $request->active)
+            ->first();
+
+        if (!is_null($connection))
+            throw new ResponseStatusException("Ошибка соединения", "Соединение уже существует", 423);
+
+        $old_user_connections = Connection::where("user_id", $request->user_id)
+            ->where("active", true)
+            ->get();
+
+        foreach ($old_user_connections as $old_user_connection) {
+            $old_user_connection->actve = false;
+            $old_user_connections->save();
+        }
+
+        $connection = Connection::create($request->validated());
+
+        return new ConnectionResource($connection);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Connection  $connection
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Connection $connection
+     * @return ConnectionResource
      */
-    public function show(Connection $connection)
+    public function show($id)
     {
-        //
+        $connection = Connection::find($id);
+
+        return new ConnectionResource($connection);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Connection  $connection
+     * @param \App\Models\Connection $connection
      * @return \Illuminate\Http\Response
      */
     public function edit(Connection $connection)
     {
-        //
+        return response()->noContent();
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Connection  $connection
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Connection $connection
+     * @return ConnectionResource
      */
-    public function update(Request $request, Connection $connection)
+    public function update(ConnectionUpdateRequest $request, $id)
     {
-        //
+        $connection = Connection::find($id);
+        $connection->update($request->validated());
+
+        return new ConnectionResource($connection);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Connection  $connection
+     * @param \App\Models\Connection $connection
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Connection $connection)
+    public function destroy($userId, $deviceId)
     {
-        //
+        $connection = Connection::where("user_id", $userId)
+            ->where("device_id", $deviceId)
+            ->first();
+
+        $connection->active = false;
+        $connection->save();
+
+        return response()->noContent();
+    }
+
+    public function clearAll()
+    {
+        Connection::truncate();
+        return response()->noContent();
     }
 }
