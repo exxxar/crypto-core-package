@@ -18,7 +18,7 @@ class CreateConnectionsTable extends Migration
             $table->string("user_id", 512)->nullable();
             $table->string("device_id", 512)->nullable();
             $table->boolean("active")->default(true);
-            $table->timestamp();
+            $table->timestamps();
         });
     }
 

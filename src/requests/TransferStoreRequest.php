@@ -24,8 +24,8 @@ class TransferStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "sender_user_id"=> ['required'],
-            "recipient_user_id"=> ['required'],
+            "sender_user_id"=> ['required','min:2','max:512'],
+            "recipient_user_id"=> ['required','min:2','max:512'],
             "data"=> ['required'],
             "status"=> ['required'],
         ];
