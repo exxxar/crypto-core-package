@@ -1,6 +1,6 @@
 <?php
 
-namespace CryptoCore\Models;
+namespace Cryptolib\CryptoCore\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

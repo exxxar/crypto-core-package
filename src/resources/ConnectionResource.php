@@ -1,6 +1,6 @@
 <?php
 
-namespace CryptoCore\Models\Resources;
+namespace Cryptolib\CryptoCore\Models\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 

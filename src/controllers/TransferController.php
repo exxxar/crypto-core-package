@@ -4,7 +4,6 @@ namespace Cryptolib\CryptoCore\Controllers;
 
 use App\Http\Controllers\Controller;
 use CryptoCore\Classes\UserPayloadServiceForServer;
-use CryptoCore\Forms\TransferDataForm;
 use CryptoCore\Models\Connection;
 use CryptoCore\Models\Resources\TransferCollection;
 use CryptoCore\Models\Resources\TransferResource;

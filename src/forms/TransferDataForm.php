@@ -1,7 +1,7 @@
 <?php
 
 
-namespace CryptoCore\Forms;
+namespace Cryptolib\CryptoCore\Forms;
 
 
 class TransferDataForm

@@ -1,8 +1,8 @@
 <?php
 
-namespace CryptoCore\Classes;
+namespace Cryptolib\CryptoCore\Classes;
 
-use CryptoCore\Models\Setting;
+use Cryptolib\CryptoCore\Models\Setting;
 
 trait SettingsService
 {

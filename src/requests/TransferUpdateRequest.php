@@ -1,6 +1,6 @@
 <?php
 
-namespace CryptoCore\Requests;
+namespace Cryptolib\CryptoCore\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
