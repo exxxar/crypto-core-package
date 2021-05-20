@@ -3,11 +3,11 @@
 namespace Cryptolib\CryptoCore\Controllers;
 
 use App\Http\Controllers\Controller;
-use CryptoCore\Models\Connection;
-use CryptoCore\Models\Resources\ConnectionCollection;
-use CryptoCore\Models\Resources\ConnectionResource;
-use CryptoCore\Requests\ConnectionStoreRequest;
-use CryptoCore\Requests\ConnectionUpdateRequest;
+use Cryptolib\CryptoCore\Models\Connection;
+use Cryptolib\CryptoCore\Models\Resources\ConnectionCollection;
+use Cryptolib\CryptoCore\Models\Resources\ConnectionResource;
+use Cryptolib\CryptoCore\Requests\ConnectionStoreRequest;
+use Cryptolib\CryptoCore\Requests\ConnectionUpdateRequest;
 use Cryptolib\CryptoCore\Exceptions\ResponseStatusException;
 use Illuminate\Http\Request;
 

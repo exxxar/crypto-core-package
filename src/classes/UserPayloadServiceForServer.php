@@ -3,8 +3,8 @@
 
 namespace Cryptolib\CryptoCore\Classes;
 
-use CryptoCore\Forms\TransferDataForm;
-use CryptoCore\Forms\TransferForm;
+use Cryptolib\CryptoCore\Forms\TransferDataForm;
+use Cryptolib\CryptoCore\Forms\TransferForm;
 use Symfony\Component\HttpClient\CurlHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
