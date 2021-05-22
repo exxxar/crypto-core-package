@@ -24,8 +24,18 @@
     "minimum-stability": "dev",
 
     "autoload": {
-        "psr-4": {
-            "Cryptolib\\CryptoCore\\": "src/"
-        }
+        "classmap": [
+            "src/",
+            "src/classes/",
+            "src/config/",
+            "src/controllers/",
+            "src/errors/",
+            "src/forms/",
+            "src/middleware/",
+            "src/migrations/",
+            "src/models/",
+            "src/requests/",
+            "src/resources/"
+        ]
     }
 }
