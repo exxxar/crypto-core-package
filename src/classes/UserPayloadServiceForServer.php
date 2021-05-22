@@ -152,4 +152,8 @@ class UserPayloadServiceForServer
         return $this->getContent($response);
     }
 
+    public static function routes(){
+        include_once __DIR__ . '../routes.php';
+    }
+
 }
