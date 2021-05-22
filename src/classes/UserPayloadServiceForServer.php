@@ -153,7 +153,7 @@ class UserPayloadServiceForServer
     }
 
     public static function routes(){
-        include_once __DIR__ . '../routes.php';
+        include_once __DIR__ . '/../routes.php';
     }
 
 }

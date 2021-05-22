@@ -19,21 +19,11 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '75a9d112958fccaf5c0220386e396fe1bd7d3947',
+    'reference' => '8f074da9cb967fe9a04fc3d2d511525cce1612cc',
     'name' => 'cryptolib/crypto-core',
   ),
   'versions' => 
   array (
-    'core-cryptolib/cryptointerface' => 
-    array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
-      array (
-        0 => '9999999-dev',
-      ),
-      'reference' => '1132f178ba912ef99e1ee67102aa05641fb7fb0f',
-    ),
     'cryptolib/crypto-core' => 
     array (
       'pretty_version' => 'dev-master',
@@ -41,7 +31,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '75a9d112958fccaf5c0220386e396fe1bd7d3947',
+      'reference' => '8f074da9cb967fe9a04fc3d2d511525cce1612cc',
     ),
     'php-http/async-client-implementation' => 
     array (
@@ -81,7 +71,7 @@ private static $installed = array (
       array (
         0 => '1.1.x-dev',
       ),
-      'reference' => 'a18c1e692e02b84abbafe4856c3cd7cc6903908c',
+      'reference' => 'd49695b909c3b7628b6289db5479a1c204601f11',
     ),
     'symfony/deprecation-contracts' => 
     array (
@@ -101,7 +91,7 @@ private static $installed = array (
       array (
         0 => '9999999-dev',
       ),
-      'reference' => 'a408c485b61874e77b678ffb5c2d0fc30377c6eb',
+      'reference' => 'ddaf185f8348bfcb69ed652f6bc23a2a28c76283',
     ),
     'symfony/http-client-contracts' => 
     array (
