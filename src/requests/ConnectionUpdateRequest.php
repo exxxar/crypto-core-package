@@ -13,7 +13,7 @@ class ConnectionUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +26,7 @@ class ConnectionUpdateRequest extends FormRequest
         return [
             "user_id"=> ['required'],
             "device_id"=> ['required'],
-            "active"=> ['required'],
+            //"active"=> ['required'],
         ];
     }
 }

@@ -13,7 +13,7 @@ class ConnectionStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     public function messages()
@@ -25,7 +25,7 @@ class ConnectionStoreRequest extends FormRequest
             'device_id.required' => 'Поле device_id объязательо',
             'device_id.min:18' => 'Длина device_id должена быть не меньше 18 символов',
             'device_id.max:18' => 'Длина device_id должена быть не больше 18 символов',
-            'active.required' => 'Доле active является объязательным',
+            //'active.required' => 'Поле active является объязательным',
         ];
     }
 

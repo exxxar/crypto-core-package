@@ -65,7 +65,7 @@ class ConnectionController extends Controller
             ->get();
 
         foreach ($old_user_connections as $old_user_connection) {
-            $old_user_connection->actve = false;
+            $old_user_connection->active = false;
             $old_user_connections->save();
         }
 
