@@ -14,14 +14,20 @@ class ResponseStatusException extends Exception
     {
         parent::__construct($message, $code, $previous);
 
-        $this->title = $title;
+        $this->title = $title ?? '';
     }
 
-    public function toJson(){
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function toJson()
+    {
         return (object)[
-          "title"=>$this->title,
-          "code"=>$this->getCode(),
-          "detail"=>$this->getMessage()
+            "title" => $this->title,
+            "code" => $this->getCode(),
+            "detail" => $this->getMessage()
         ];
     }
 }

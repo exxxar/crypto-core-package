@@ -125,6 +125,9 @@ class ConnectionController extends Controller
             ->where("device_id", $deviceId)
             ->first();
 
+        if (is_null($connection))
+            throw new ResponseStatusException("Ошибка соединения", "Соединение не найдено", 404);
+
         $connection->active = false;
         $connection->save();
 
