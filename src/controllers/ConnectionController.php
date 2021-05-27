@@ -54,7 +54,7 @@ class ConnectionController extends Controller
     {
         $connection = Connection::where("device_id", $request->device_id)
             ->where("user_id", $request->user_id)
-            ->where("active", $request->active)
+            ->where("active", true)
             ->first();
 
         if (!is_null($connection))
