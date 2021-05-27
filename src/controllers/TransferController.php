@@ -65,8 +65,11 @@ class TransferController extends Controller
         if (count($connections) === 0)
             throw new ResponseStatusException("Ошибка подключения", "Отправитель не подключен к устойству", 403);
 
-        $transfer = Transfer::create($request->validated());
-        $transfer->status = (new ErrorForm(0))->toJSON();
+        $transfer = new Transfer;
+        $transfer->sender_user_id = $request->sender_user_id;
+        $transfer->recipient_user_id = $request->recipient_user_id;
+        $transfer->data = $request->data;
+        $transfer->status = json_encode((new ErrorForm($request->status['type'], $request->status['error']))->toJSON());
         $transfer->save();
 
         return new TransferResource($transfer);
