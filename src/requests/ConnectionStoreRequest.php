@@ -39,8 +39,7 @@ class ConnectionStoreRequest extends FormRequest
         return [
             "user_id"=> ['required','min:2','max:512'],
             "device_id"=> ['required', 'min:18','max:18'],
-            "active"=> ['required'],
-
+            //"active"=> ['required'],
         ];
     }
 }
