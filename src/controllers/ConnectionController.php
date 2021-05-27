@@ -66,7 +66,7 @@ class ConnectionController extends Controller
 
         foreach ($old_user_connections as $old_user_connection) {
             $old_user_connection->active = false;
-            $old_user_connections->save();
+            $old_user_connection->save();
         }
 
         $connection = Connection::create($request->validated());
