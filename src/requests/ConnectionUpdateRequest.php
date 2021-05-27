@@ -24,8 +24,8 @@ class ConnectionUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            "user_id"=> ['required'],
-            "device_id"=> ['required'],
+            "userId"=> ['required'],
+            "deviceId"=> ['required'],
             //"active"=> ['required'],
         ];
     }

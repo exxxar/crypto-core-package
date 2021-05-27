@@ -3,6 +3,7 @@
 namespace Cryptolib\CryptoCore\Controllers;
 
 use App\Http\Controllers\Controller;
+use Cryptolib\CryptoCore\forms\ErrorForm;
 use Cryptolib\CryptoCore\Models\Connection;
 use Cryptolib\CryptoCore\Models\Resources\ConnectionCollection;
 use Cryptolib\CryptoCore\Models\Resources\ConnectionResource;
@@ -47,20 +48,20 @@ class ConnectionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return ConnectionResource
+     * @return object
      * @throws ResponseStatusException
      */
     public function store(ConnectionStoreRequest $request)
     {
-        $connection = Connection::where("device_id", $request->device_id)
-            ->where("user_id", $request->user_id)
+        $connection = Connection::where("device_id", $request->deviceId)
+            ->where("user_id", $request->userId)
             ->where("active", true)
             ->first();
 
         if (!is_null($connection))
             throw new ResponseStatusException("Ошибка соединения", "Соединение уже существует", 423);
 
-        $old_user_connections = Connection::where("user_id", $request->user_id)
+        $old_user_connections = Connection::where("user_id", $request->userId)
             ->where("active", true)
             ->get();
 
@@ -69,9 +70,17 @@ class ConnectionController extends Controller
             $old_user_connection->save();
         }
 
-        $connection = Connection::create($request->validated());
+        $connection = Connection::create([
+            "user_id" => $request->userId,
+            "device_id" => $request->deviceId,
+            "active" => $request->active ?? true
+        ]);
 
-        return new ConnectionResource($connection);
+        return (object)[
+            "code"=>200,
+            "detail"=>"Соединение успешно соединение",
+            "title"=>"Создания соединения"
+        ];
     }
 
     /**
@@ -108,7 +117,10 @@ class ConnectionController extends Controller
     public function update(ConnectionUpdateRequest $request, $id)
     {
         $connection = Connection::find($id);
-        $connection->update($request->validated());
+        $connection->active = $request->active??true;
+        $connection->user_id = $request->userId;
+        $connection->device_id = $request->deviceId;
+        $connection->save();
 
         return new ConnectionResource($connection);
     }

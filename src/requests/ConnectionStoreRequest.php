@@ -19,12 +19,12 @@ class ConnectionStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'user_id.required' => 'Поле user_id - должно присутстовать объязательно',
-            'user_id.min:2' => 'Длина user_id должена быть не меньше 2х символов',
-            'user_id.max:18' => 'Длина user_id должена быть не больше 512 символов',
-            'device_id.required' => 'Поле device_id объязательо',
-            'device_id.min:18' => 'Длина device_id должена быть не меньше 18 символов',
-            'device_id.max:18' => 'Длина device_id должена быть не больше 18 символов',
+            'userId.required' => 'Поле user_id - должно присутстовать объязательно',
+            'userId.min:2' => 'Длина user_id должена быть не меньше 2х символов',
+            'userId.max:18' => 'Длина user_id должена быть не больше 512 символов',
+            'deviceId.required' => 'Поле device_id объязательо',
+            'deviceId.min:18' => 'Длина device_id должена быть не меньше 18 символов',
+            'deviceId.max:18' => 'Длина device_id должена быть не больше 18 символов',
             //'active.required' => 'Поле active является объязательным',
         ];
     }
@@ -37,8 +37,8 @@ class ConnectionStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "user_id"=> ['required','min:2','max:512'],
-            "device_id"=> ['required', 'min:18','max:18'],
+            "userId"=> ['required','min:2','max:512'],
+            "deviceId"=> ['required', 'min:18','max:18'],
             //"active"=> ['required'],
         ];
     }

@@ -33,7 +33,7 @@ Route::post("/transfer", [Cryptolib\CryptoCore\Controllers\TransferController::c
     ->name("transfers.add")
     ->middleware(["x-api:0.0.3"]);
 
-Route::get("/transfers/{userId}", [Cryptolib\CryptoCore\Controllers\TransferController::class, "showByUser"])
+Route::get("/transfers/{userId}", [Cryptolib\CryptoCore\Controllers\TransferController::class, "showByUserId"])
     ->name("transfers.show_by_user")
     ->middleware(["x-api:0.0.3"]);
 
@@ -49,7 +49,7 @@ Route::post("/info/create", [Cryptolib\CryptoCore\Controllers\TransferController
     ->name("transfers.create")
     ->middleware(["x-api:0.0.3"]);
 
-Route::get("/clear", [Cryptolib\CryptoCore\Controllers\TransferController::class, "clear"])
+Route::delete("/clear", [Cryptolib\CryptoCore\Controllers\TransferController::class, "clear"])
     ->name("transfers.clear")
     ->middleware(["x-api:0.0.3"]);
 

@@ -16,8 +16,8 @@ class ConnectionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            "user_id"=> $this->user_id,
-            "device_id"=> $this->device_id,
+            "userId"=> $this->user_id,
+            "deviceId"=> $this->device_id,
             "active"=> $this->active,
         ];
     }

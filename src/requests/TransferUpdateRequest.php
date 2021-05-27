@@ -24,8 +24,8 @@ class TransferUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            "sender_user_id"=> ['required'],
-            "recipient_user_id"=> ['required'],
+            "senderUserId"=> ['required'],
+            "recipientUserId"=> ['required'],
             "data"=> ['required'],
             "status"=> ['required'],
         ];

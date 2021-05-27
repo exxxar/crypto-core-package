@@ -16,8 +16,8 @@ class TransferResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            "sender_user_id"=> $this->sender_user_id,
-            "recipient_user_id"=> $this->recipient_user_id,
+            "senderUserId"=> $this->sender_user_id,
+            "recipientUserId"=> $this->recipient_user_id,
             "data"=> $this->data,
             "status"=> $this->status,
         ];

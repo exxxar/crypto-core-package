@@ -54,31 +54,35 @@ class TransferController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return TransferResource
+     * @return object
      * @throws ResponseStatusException
      */
     public function store(TransferStoreRequest $request)
     {
 
-        $connections = Connection::where("user_id", $request->sender_user_id)->get();
+        $connections = Connection::where("user_id", $request->senderUserId)->get();
 
         if (count($connections) === 0)
             throw new ResponseStatusException("Ошибка подключения", "Отправитель не подключен к устойству", 403);
 
         $transfer = new Transfer;
-        $transfer->sender_user_id = $request->sender_user_id;
-        $transfer->recipient_user_id = $request->recipient_user_id;
+        $transfer->sender_user_id = $request->senderUserId;
+        $transfer->recipient_user_id = $request->recipientUserId;
         $transfer->data = $request->data;
         $transfer->status = json_encode((new ErrorForm($request->status['type'], $request->status['error']))->toJSON());
         $transfer->save();
 
-        return new TransferResource($transfer);
+        return (object)[
+            "code" => 200,
+            "detail" => "Трансфер успешно создан",
+            "title" => "Создания трансфера"
+        ];//new TransferResource($transfer);
     }
 
 
     public function showByUserId($userId)
     {
-        $transfer = Transfer::where("user_id", $userId)->get();
+        $transfer = Transfer::where("sender_user_id", $userId)->orWhere("recipient_user_id", $userId)->get();
 
         return new TransferCollection($transfer);
     }
@@ -105,7 +109,11 @@ class TransferController extends Controller
     public function update(TransferUpdateRequest $request, $id)
     {
         $transfer = Transfer::find($id);
-        $transfer->update($request->validated());
+        $transfer->sender_user_id = $request->senderUserId;
+        $transfer->recipient_user_id = $request->recipientUserId;
+        $transfer->data = $request->data;
+        $transfer->status = $request->status;
+        $transfer->save();
 
         return new TransferResource($transfer);
     }
@@ -187,39 +195,39 @@ class TransferController extends Controller
     public function getInfoUser($userId)
     {
 
-       /* $connections = Connection::where("active", true)->get();
+        /* $connections = Connection::where("active", true)->get();
 
 
-                $tmpUserId =base64_encode($userId);
+                 $tmpUserId =base64_encode($userId);
 
-                $transfers = Transfer::where("sender_user_id",$tmpUserId)
-                    ->orWhere("recipient_user_id", $tmpUserId)
-                    ->get();
+                 $transfers = Transfer::where("sender_user_id",$tmpUserId)
+                     ->orWhere("recipient_user_id", $tmpUserId)
+                     ->get();
 
-                foreach ($transfers as $transfer) {
+                 foreach ($transfers as $transfer) {
 
-            $tdf = $this->userPayloadService->dataRequest($transfer);//transfer.getTransferDataForm()
+             $tdf = $this->userPayloadService->dataRequest($transfer);//transfer.getTransferDataForm()
 
-                    $data = $tdf->getData();
+                     $data = $tdf->getData();
 
-                    JSONObject tmpObject = new JSONObject();
-                    tmpObject.put("status", "");
-                    tmpObject.put("id", transfer.getId());
-                    tmpObject.put("recipientUserId", transfer.getRecipientUserId());
-                    tmpObject.put("decodedRecipientUserId", transfer.getRecipientUserId());
-                    tmpObject.put("decodedSenderUserId", transfer.getSenderUserId());
-                    tmpObject.put("senderUserId", transfer.getSenderUserId());
-                    tmpObject.put("data", data);
-                    tmpObject.put("recivedData", "");
-                    tmpObject.put("createDateTime", transfer.getCreateDateTime());
+                     JSONObject tmpObject = new JSONObject();
+                     tmpObject.put("status", "");
+                     tmpObject.put("id", transfer.getId());
+                     tmpObject.put("recipientUserId", transfer.getRecipientUserId());
+                     tmpObject.put("decodedRecipientUserId", transfer.getRecipientUserId());
+                     tmpObject.put("decodedSenderUserId", transfer.getSenderUserId());
+                     tmpObject.put("senderUserId", transfer.getSenderUserId());
+                     tmpObject.put("data", data);
+                     tmpObject.put("recivedData", "");
+                     tmpObject.put("createDateTime", transfer.getCreateDateTime());
 
-                }
+                 }
 
-        modelAndView.addObject("connections", connections);
-        modelAndView.addObject("transfers", tmpTransfers);
-        modelAndView.addObject("ownid", ownUserId);
-        modelAndView.addObject("userid", userId);
-        modelAndView.setViewName("admin/info");*/
+         modelAndView.addObject("connections", connections);
+         modelAndView.addObject("transfers", tmpTransfers);
+         modelAndView.addObject("ownid", ownUserId);
+         modelAndView.addObject("userid", userId);
+         modelAndView.setViewName("admin/info");*/
 
     }
 
