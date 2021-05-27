@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Cryptolib\CryptoCore\Classes\UserPayloadServiceForServer;
 use Cryptolib\CryptoCore\Exceptions\ResponseStatusException;
 use Cryptolib\CryptoCore\forms\ErrorForm;
+use Cryptolib\CryptoCore\Forms\TransferForm;
 use Cryptolib\CryptoCore\Models\Connection;
 use Cryptolib\CryptoCore\Models\Resources\TransferCollection;
 use Cryptolib\CryptoCore\Models\Resources\TransferResource;
@@ -144,66 +145,59 @@ class TransferController extends Controller
         $transfers = Transfer::where("sender_user_id", $userId)
             ->orWhere("recipient_user_id", $userId)
             ->get();
-        /*
+
+        if (count($transfers) == 0)
+            return response()->json($transfers);
 
 
-                if (transfers.isEmpty()) {
-                    JSONObject res = new JSONObject();
-                    res.put("res", null);
+        foreach ($transfers as $transfer) {
 
-                    return new ResponseEntity<>(res, HttpStatus.OK);
-                }
+            $transferForm = new TransferForm(
+                $transfer->id,
+                $transfer->sender_user_id,
+                $transfer->recipient_user_id,
+                $transfer->data,
+                $transfer->created_at,
+                $transfer->updated_at
+            );
 
-                List<JSONObject> tmpTransfers = new ArrayList<>();
+            $hrf = $this->userPayloadService->handler($transferForm);
 
-                for (Transfer transfer : transfers) {
+            $data = $hrf->getData();
 
-                    HandlerResultForm hrf = userPayloadServiceForServer.handler(transfer.getTransferForm());
 
-                    String data = hrf.getData();
+            $tmpObject = (object)[
+                "decodedRecipientUserId" => $transfer->getRecipientUserId(),
+                "decodedSenderUserId" => $transfer->getSenderUserId(),
+                "senderUserId" => $transfer->getSenderUserId(),
+                "data" => $data,
+                "recivedData" => "",
+                "createDateTime" => $transfer->getCreateDateTime(),
+            ];
 
-                    JSONObject tmpObject = new JSONObject();
+        }
 
-                    tmpObject.put("decodedRecipientUserId", transfer.getRecipientUserId());
-                    tmpObject.put("decodedSenderUserId", transfer.getSenderUserId());
-                    tmpObject.put("senderUserId", transfer.getSenderUserId());
-                    tmpObject.put("data", data);
-                    tmpObject.put("type", transfer.getTransferType());
-                    tmpObject.put("recivedData", "");
-                    tmpObject.put("createDateTime", transfer.getCreateDateTime());
-
-                    tmpTransfers.add(tmpObject);
-                }
-
-                JSONObject res = new JSONObject();
-
-                res.put("res", tmpTransfers.toArray());
-
-                return new ResponseEntity<>(res, HttpStatus.OK);*/
+        return response()->json($tmpObject);
     }
 
 
     public function getInfoUser($userId)
     {
-        /*@RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
-            public ModelAndView infoUser(@PathVariable(value = "id") String userId)
-                    throws UnsupportedEncodingException, ParseException,
-                    InvalidKeyException, InvalidKeySpecException, NoSuchAlgorithmException,
-                    InvalidAlgorithmParameterException, NoSuchPaddingException, BadPaddingException, IllegalBlockSizeException {
-                ModelAndView modelAndView = new ModelAndView();
 
-                List<Connection> connections = connectionRepository.findByActive(true);
-                String tmpUserId = Base64.getEncoder().encodeToString(userId.getBytes());
+       /* $connections = Connection::where("active", true)->get();
 
-                List<Transfer> transfers = transferRepository.findByRecipientUserIdOrSenderUserId(tmpUserId);
-                List<JSONObject> tmpTransfers = new ArrayList();
 
-                for (Transfer transfer : transfers) {
+                $tmpUserId =base64_encode($userId);
 
-                    TransferDataForm tdf = userPayloadServiceForServer.dataRequest(transfer.getTransferDataForm());
+                $transfers = Transfer::where("sender_user_id",$tmpUserId)
+                    ->orWhere("recipient_user_id", $tmpUserId)
+                    ->get();
 
-                    String data = tdf.getData();
-                    transferRepository.save(transfer);
+                foreach ($transfers as $transfer) {
+
+            $tdf = $this->userPayloadService->dataRequest($transfer);//transfer.getTransferDataForm()
+
+                    $data = $tdf->getData();
 
                     JSONObject tmpObject = new JSONObject();
                     tmpObject.put("status", "");
@@ -222,43 +216,43 @@ class TransferController extends Controller
         modelAndView.addObject("transfers", tmpTransfers);
         modelAndView.addObject("ownid", ownUserId);
         modelAndView.addObject("userid", userId);
-        modelAndView.setViewName("admin/info");
-        return modelAndView;
-        }*/
+        modelAndView.setViewName("admin/info");*/
+
     }
 
-    public function createInfo(TransferStoreRequest $request){
-     /*   @PostMapping("/info/create")
-    public ResponseEntity<JSONObject> createServerTransferUI(@RequestBody TransferForm transferForm)
-            throws UnsupportedEncodingException, ParseException,
-            InvalidKeyException, InvalidKeySpecException, NoSuchAlgorithmException,
-            InvalidAlgorithmParameterException, NoSuchPaddingException, BadPaddingException, IllegalBlockSizeException {
-
-            if (transferForm.getRecipientUserId().equals("0")) {
-                JSONObject obj = new JSONObject();
-            obj.put("message", "error");
-            return new ResponseEntity<>(obj, HttpStatus.NOT_FOUND);
-        }
-
-            Transfer transfer = new Transfer();
-        transfer.setRecipientUserId(transferForm.getRecipientUserId());
-        transfer.setSenderUserId(ownUserId);
-
-        TransferDataForm tdf = new TransferDataForm();
-        tdf.setType(InfoRequestType.data.getValue());
-        tdf.setData(transferForm.getData());
-
-        tdf = userPayloadServiceForServer.encryptedDataRequest("AA==", tdf);
-
-        transfer.setData(tdf.toBase64JSON());
-        transfer.setStatusType(0);
-        transferRepository.save(transfer);
-
-        JSONObject obj = new JSONObject();
-        obj.put("message", "success");
-        obj.put("recipientUserId", transfer.getRecipientUserId());
-        obj.put("data", transfer.getData());
-        return new ResponseEntity<>(obj, HttpStatus.OK);
-    }*/
+    public function createInfo(TransferStoreRequest $request)
+    {
+        /*   @PostMapping("/info/create")
+         * public ResponseEntity<JSONObject> createServerTransferUI(@RequestBody TransferForm transferForm)
+         * throws UnsupportedEncodingException, ParseException,
+         * InvalidKeyException, InvalidKeySpecException, NoSuchAlgorithmException,
+         * InvalidAlgorithmParameterException, NoSuchPaddingException, BadPaddingException, IllegalBlockSizeException {
+         *
+         * if (transferForm.getRecipientUserId().equals("0")) {
+         * JSONObject obj = new JSONObject();
+         * obj.put("message", "error");
+         * return new ResponseEntity<>(obj, HttpStatus.NOT_FOUND);
+         * }
+         *
+         * Transfer transfer = new Transfer();
+         * transfer.setRecipientUserId(transferForm.getRecipientUserId());
+         * transfer.setSenderUserId(ownUserId);
+         *
+         * TransferDataForm tdf = new TransferDataForm();
+         * tdf.setType(InfoRequestType.data.getValue());
+         * tdf.setData(transferForm.getData());
+         *
+         * tdf = userPayloadServiceForServer.encryptedDataRequest("AA==", tdf);
+         *
+         * transfer.setData(tdf.toBase64JSON());
+         * transfer.setStatusType(0);
+         * transferRepository.save(transfer);
+         *
+         * JSONObject obj = new JSONObject();
+         * obj.put("message", "success");
+         * obj.put("recipientUserId", transfer.getRecipientUserId());
+         * obj.put("data", transfer.getData());
+         * return new ResponseEntity<>(obj, HttpStatus.OK);
+         * }*/
     }
 }

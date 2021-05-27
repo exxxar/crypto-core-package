@@ -3,12 +3,14 @@
 
 namespace Cryptolib\CryptoCore\Classes;
 
+use Cryptolib\CryptoCore\forms\HandlerResultForm;
 use Cryptolib\CryptoCore\Forms\TransferDataForm;
 use Cryptolib\CryptoCore\Forms\TransferForm;
+use Cryptolib\CryptoCore\interfaces\iUserPayloadServiceForServer;
 use Symfony\Component\HttpClient\CurlHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class UserPayloadServiceForServer
+class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 {
     private $client;
 
@@ -66,7 +68,7 @@ class UserPayloadServiceForServer
         return $this->getContent($response);
     }
 
-    public function handler(TransferForm $transfer): array
+    public function handler(TransferForm $transfer): HandlerResultForm
     {
         $response = $this->client->request(
             'POST',
@@ -117,7 +119,7 @@ class UserPayloadServiceForServer
         return $this->getContent($response);
     }
 
-    public function dataRequest(TransferDataForm $transfer): array
+    public function dataRequest(TransferDataForm $transfer): TransferDataForm
     {
         $response = $this->client->request(
             'POST',
