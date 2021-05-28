@@ -22,7 +22,9 @@ interface iUserPayloadServiceForServer
 
     public function dataRequest(TransferDataForm $transfer): TransferDataForm;
 
-    public function encryptedDataRequest($trustedDeviceData, TransferDataForm $transfer): array;
+    public function encryptedDataRequestV1($trustedDeviceData, TransferDataForm $transfer): TransferDataForm;
+
+    public function encryptedDataRequestV2($trustedDeviceData, TransferDataForm $transfer): TransferDataForm;
 
 
 }

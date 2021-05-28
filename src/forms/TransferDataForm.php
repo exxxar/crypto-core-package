@@ -4,6 +4,8 @@
 namespace Cryptolib\CryptoCore\Forms;
 
 
+use Cryptolib\CryptoCore\Models\Transfer;
+
 class TransferDataForm
 {
     private $type;
@@ -55,6 +57,8 @@ class TransferDataForm
 
         return $obj;
     }
+
+
 
     public function toJSON()
     {

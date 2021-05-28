@@ -137,11 +137,11 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
     }
 
 
-    public function encryptedDataRequest($trustedDeviceData, TransferDataForm $transfer): array
+    public function encryptedDataRequestV1($trustedDeviceData, TransferDataForm $transfer): TransferDataForm
     {
         $response = $this->client->request(
             'GET',
-            "$this->url/cryptolib/server/encryptedDataRequest/$trustedDeviceData",
+            "$this->url/cryptolib/server/encryptedDataRequest/v1/$trustedDeviceData",
             [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -153,6 +153,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
         return $this->getContent($response);
     }
+
 
     public static function routes(){
         include_once __DIR__ . '/../routes.php';
