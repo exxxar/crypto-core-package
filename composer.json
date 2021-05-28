@@ -30,6 +30,7 @@
             "src/config/",
             "src/controllers/",
             "src/errors/",
+            "src/events/",
             "src/interfaces/",
             "src/forms/",
             "src/middleware/",
