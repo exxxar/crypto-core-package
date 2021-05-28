@@ -5,6 +5,7 @@ namespace Cryptolib\CryptoCore\Controllers;
 use App\Http\Controllers\Controller;
 
 use Cryptolib\CryptoCore\Classes\UserPayloadServiceForServer;
+use Cryptolib\CryptoCore\Events\HandlerResultFormEvent;
 use Cryptolib\CryptoCore\Exceptions\ResponseStatusException;
 use Cryptolib\CryptoCore\forms\ErrorForm;
 use Cryptolib\CryptoCore\Forms\TransferForm;
@@ -71,6 +72,20 @@ class TransferController extends Controller
         $transfer->data = $request->data;
         $transfer->status = json_encode((new ErrorForm($request->status['type'], $request->status['error']))->toJSON());
         $transfer->save();
+
+
+        $transferForm = new TransferForm(
+            $transfer->id,
+            $transfer->sender_user_id,
+            $transfer->recipient_user_id,
+            $transfer->data,
+            $transfer->created_at,
+            $transfer->updated_at
+        );
+
+        $hrf = $this->userPayloadService->handler($transferForm);
+
+        event(new HandlerResultFormEvent($hrf));
 
         return (object)[
             "code" => 200,
