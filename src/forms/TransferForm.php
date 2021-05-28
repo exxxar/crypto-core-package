@@ -20,7 +20,7 @@ class TransferForm
 
     private $updateDateTime;
 
-    public function __construct(int $id,int $senderUserId,int $recipientUserId, $data, $createDateTime, $updateDateTime)
+    public function __construct( $id, $senderUserId, $recipientUserId, $data, $createDateTime, $updateDateTime)
     {
         $this->id = $id;
         $this->senderUserId = $senderUserId;
