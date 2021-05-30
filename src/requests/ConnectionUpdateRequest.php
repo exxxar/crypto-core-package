@@ -25,7 +25,7 @@ class ConnectionUpdateRequest extends FormRequest
     {
         return [
             "userId"=> ['required'],
-            "deviceId"=> ['required'],
+            "trustedDevicePublicId"=> ['required'],
             //"active"=> ['required'],
         ];
     }

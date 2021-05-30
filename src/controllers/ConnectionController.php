@@ -53,7 +53,7 @@ class ConnectionController extends Controller
      */
     public function store(ConnectionStoreRequest $request)
     {
-        $connection = Connection::where("device_id", $request->deviceId)
+        $connection = Connection::where("device_id", $request->trustedDevicePublicId)
             ->where("user_id", $request->userId)
             ->where("active", true)
             ->first();
@@ -72,7 +72,7 @@ class ConnectionController extends Controller
 
         $connection = Connection::create([
             "user_id" => $request->userId,
-            "device_id" => $request->deviceId,
+            "device_id" => $request->trustedDevicePublicId,
             "active" => $request->active ?? true
         ]);
 
@@ -119,7 +119,7 @@ class ConnectionController extends Controller
         $connection = Connection::find($id);
         $connection->active = $request->active??true;
         $connection->user_id = $request->userId;
-        $connection->device_id = $request->deviceId;
+        $connection->device_id = $request->trustedDevicePublicId;
         $connection->save();
 
         return new ConnectionResource($connection);
