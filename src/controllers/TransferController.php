@@ -70,9 +70,14 @@ class TransferController extends Controller
         $transfer->sender_user_id = $request->senderUserId;
         $transfer->recipient_user_id = $request->recipientUserId;
         $transfer->data = $request->data;
-        $transfer->status = json_encode((new ErrorForm($request->status['type'], $request->status['error']))->toJSON());
-        $transfer->save();
 
+        if ($request->status) {
+            $transfer->status = json_encode((new ErrorForm($request->status['type'] ?? 0, $request->status['error'] ?? null))->toJSON());
+        } else {
+            $transfer->status = json_encode((new ErrorForm())->toJSON());
+        }
+        
+        $transfer->save();
 
         $transferForm = new TransferForm(
             $transfer->id,
@@ -82,14 +87,14 @@ class TransferController extends Controller
             $transfer->created_at,
             $transfer->updated_at
         );
-        $transferForm->setStatus($transfer->status);
+        $transferForm->setStatus(json_decode($transfer->status));
 
         $hrf = $this->userPayloadService->handler($transferForm);
 
         event(new HandlerResultFormEvent($hrf));
 
         return response()->json((object)[
-            "id" => $hrf->getOutgoingTransfer()->getId(),
+            "id" => $transfer->id//$hrf->getOutgoingTransfer()->getId(),
         ]);//new TransferResource($transfer);
     }
 

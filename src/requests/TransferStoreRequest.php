@@ -27,7 +27,8 @@ class TransferStoreRequest extends FormRequest
             "senderUserId"=> ['required','min:2','max:512'],
             "recipientUserId"=> ['required','min:2','max:512'],
             "data"=> ['required'],
-            "status"=> ['required'],
+            // С ПУ не приходит
+            //"status"=> ['required'],
         ];
     }
 }

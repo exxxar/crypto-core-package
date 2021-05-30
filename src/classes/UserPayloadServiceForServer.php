@@ -82,7 +82,11 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             ]
         );
 
-        $content = (object)$this->getContent($response);
+        $content = (object) $this->getContent($response);
+        $content->incomingTransfer = (object) $content->incomingTransfer;
+        $content->incomingTransfer->status = (object) $content->incomingTransfer->status;
+        $content->outgoingTransfer = (object) $content->outgoingTransfer;
+        $content->outgoingTransfer->status = (object) $content->outgoingTransfer->status;
 
         $hrf = new HandlerResultForm();
 
