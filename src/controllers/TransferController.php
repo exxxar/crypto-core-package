@@ -82,16 +82,15 @@ class TransferController extends Controller
             $transfer->created_at,
             $transfer->updated_at
         );
+        $transferForm->setStatus($transfer->status);
 
         $hrf = $this->userPayloadService->handler($transferForm);
 
         event(new HandlerResultFormEvent($hrf));
 
-        return (object)[
-            "code" => 200,
-            "detail" => "Трансфер успешно создан",
-            "title" => "Создания трансфера"
-        ];//new TransferResource($transfer);
+        return response()->json((object)[
+            "id" => $hrf->getOutgoingTransfer()->getId(),
+        ]);//new TransferResource($transfer);
     }
 
 

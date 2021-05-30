@@ -82,7 +82,39 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             ]
         );
 
-        return $this->getContent($response);
+        $content = (object)$this->getContent($response);
+
+        $hrf = new HandlerResultForm();
+
+        $incomingTransfer = new TransferForm(
+            $content->incomingTransfer->id ?? null,
+            $content->incomingTransfer->senderUserId ?? null,
+            $content->incomingTransfer->recipientUserId ?? null,
+            $content->incomingTransfer->data ?? null,
+            $content->incomingTransfer->createDateTime ?? null,
+            $content->incomingTransfer->updateDateTime ?? null
+        );
+
+        $incomingTransfer->setStatus($content->incomingTransfer->status ?? null);
+
+        $outgoingTransfer = new TransferForm(
+            $content->outgoingTransfer->id ?? null,
+            $content->outgoingTransfer->senderUserId ?? null,
+            $content->outgoingTransfer->recipientUserId ?? null,
+            $content->outgoingTransfer->data ?? null,
+            $content->outgoingTransfer->createDateTime ?? null,
+            $content->outgoingTransfer->updateDateTime ?? null
+        );
+
+        $incomingTransfer->setStatus($content->outgoingTransfer->status ?? null);
+
+        $data = $content->data ?? null;
+
+        $hrf->setIncomingTransfer($incomingTransfer);
+        $hrf->setOutgoingTransfer($outgoingTransfer);
+        $hrf->setData($data);
+
+        return $hrf;
     }
 
     public function twiceEncryptedRequest(TransferDataForm $transfer): array
@@ -155,7 +187,8 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
     }
 
 
-    public static function routes(){
+    public static function routes()
+    {
         include_once __DIR__ . '/../routes.php';
     }
 
