@@ -76,11 +76,11 @@ class ConnectionController extends Controller
             "active" => $request->active ?? true
         ]);
 
-        return (object)[
+        return response()->json((object)[
             "code"=>200,
             "detail"=>"Соединение успешно соединение",
             "title"=>"Создания соединения"
-        ];
+        ]);
     }
 
     /**
