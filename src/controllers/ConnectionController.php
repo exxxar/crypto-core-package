@@ -135,6 +135,7 @@ class ConnectionController extends Controller
     {
         $connection = Connection::where("user_id", $userId)
             ->where("device_id", $deviceId)
+            ->where("active", true)
             ->first();
 
         if (is_null($connection))
