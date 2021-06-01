@@ -103,7 +103,9 @@ class TransferController extends Controller
     {
         $transfer = Transfer::where("sender_user_id", $userId)->orWhere("recipient_user_id", $userId)->get();
 
-        return new TransferCollection($transfer);
+        $transferCollection = new TransferCollection($transfer);
+
+        return $transferCollection->collection;
     }
 
     public function showByTransferId($transferId)
