@@ -19,7 +19,7 @@ class TransferResource extends JsonResource
             "senderUserId"=> $this->sender_user_id,
             "recipientUserId"=> $this->recipient_user_id,
             "data"=> $this->data,
-            "status"=> $this->status,
+            "status"=> json_decode($this->status),
         ];
     }
 }
