@@ -4,7 +4,7 @@ namespace Cryptolib\CryptoCore\Providers;
 
 use Cryptolib\CryptoCore\Events\HandleMSEvent;
 use Cryptolib\CryptoCore\Listeners\HandleMSListener;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class CryptoEventServiceProvider extends ServiceProvider
 {
@@ -14,6 +14,8 @@ class CryptoEventServiceProvider extends ServiceProvider
             HandleMSListener::class,
         ]
     ];
+
+
     /**
      * Register services.
      *
@@ -31,6 +33,6 @@ class CryptoEventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        parent::boot();
     }
 }
