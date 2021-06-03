@@ -31,6 +31,8 @@
             "src/controllers/",
             "src/errors/",
             "src/events/",
+            "src/providers/",
+            "src/listeners/",
             "src/interfaces/",
             "src/forms/",
             "src/middleware/",

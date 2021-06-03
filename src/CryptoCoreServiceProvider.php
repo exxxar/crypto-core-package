@@ -4,6 +4,7 @@ namespace Cryptolib\CryptoCore;
 
 
 use Cryptolib\CryptoCore\Middleware\XApiVersionMiddleware;
+use Cryptolib\CryptoCore\Providers\CryptoEventServiceProvider;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +19,7 @@ class CryptoCoreServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        $this->app->register(CryptoEventServiceProvider::class);
     }
 
     /**
