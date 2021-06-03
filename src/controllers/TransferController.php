@@ -154,6 +154,17 @@ class TransferController extends Controller
 
     }
 
+    public function status($transferId){
+        $transfer = Transfer::find($transferId);
+
+        if (is_null($transfer)) {
+            throw new ResponseStatusException("Ошибка трансфера", "Трансфер не найден", 404);
+        }
+
+        return response()->json($transfer->status);
+    }
+
+
     public function changeTransferStatus($id, ErrorForm $status)
     {
         $transfer = Transfer::find($id);
