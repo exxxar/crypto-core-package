@@ -1,6 +1,6 @@
 <?php
 
-namespace Cryptolib\CryptoCore\Providers;
+namespace Cryptolib\CryptoCore\providers;
 
 use Cryptolib\CryptoCore\Events\HandleMSEvent;
 use Cryptolib\CryptoCore\Listeners\HandleMSListener;

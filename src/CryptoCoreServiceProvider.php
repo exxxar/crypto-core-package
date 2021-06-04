@@ -4,7 +4,7 @@ namespace Cryptolib\CryptoCore;
 
 
 use Cryptolib\CryptoCore\Middleware\XApiVersionMiddleware;
-use Cryptolib\CryptoCore\Providers\CryptoEventServiceProvider;
+use Cryptolib\CryptoCore\providers\CryptoEventServiceProvider;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;

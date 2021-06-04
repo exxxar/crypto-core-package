@@ -1,6 +1,6 @@
 <?php
 
-namespace Cryptolib\CryptoCore\Events;
+namespace Cryptolib\CryptoCore\events;
 
 use Cryptolib\CryptoCore\forms\HandlerResultForm;
 use Illuminate\Broadcasting\Channel;
