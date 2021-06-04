@@ -2,8 +2,8 @@
 
 namespace Cryptolib\CryptoCore\providers;
 
-use Cryptolib\CryptoCore\Events\HandleMSEvent;
-use Cryptolib\CryptoCore\Listeners\HandleMSListener;
+use Cryptolib\CryptoCore\events\HandleMSEvent;
+use Cryptolib\CryptoCore\listeners\HandleMSListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class CryptoEventServiceProvider extends ServiceProvider

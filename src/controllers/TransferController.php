@@ -5,8 +5,8 @@ namespace Cryptolib\CryptoCore\Controllers;
 use App\Http\Controllers\Controller;
 
 use Cryptolib\CryptoCore\Classes\UserPayloadServiceForServer;
-use Cryptolib\CryptoCore\Events\HandleMSEvent;
-use Cryptolib\CryptoCore\Events\HandlerResultFormEvent;
+use Cryptolib\CryptoCore\events\HandleMSEvent;
+use Cryptolib\CryptoCore\events\HandlerResultFormEvent;
 use Cryptolib\CryptoCore\Exceptions\ResponseStatusException;
 use Cryptolib\CryptoCore\forms\ErrorForm;
 use Cryptolib\CryptoCore\Forms\TransferForm;

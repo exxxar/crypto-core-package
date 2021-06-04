@@ -3,8 +3,8 @@
 namespace Cryptolib\CryptoCore\listeners;
 
 use Cryptolib\CryptoCore\Classes\UserPayloadServiceForServer;
-use Cryptolib\CryptoCore\Events\HandleMSEvent;
-use Cryptolib\CryptoCore\Events\HandlerResultFormEvent;
+use Cryptolib\CryptoCore\events\HandleMSEvent;
+use Cryptolib\CryptoCore\events\HandlerResultFormEvent;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
