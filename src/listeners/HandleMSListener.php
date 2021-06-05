@@ -17,7 +17,7 @@ class HandleMSListener implements ShouldQueue
 
     public $queue = "listeners";
 
-    public $delay = 60;
+    public $delay = 1;
 
     /**
      * Create the event listener.
@@ -26,7 +26,7 @@ class HandleMSListener implements ShouldQueue
      */
     public function __construct()
     {
-        //
+        $this->delay = config('crypto.dispatch_delay');
     }
 
     /**
