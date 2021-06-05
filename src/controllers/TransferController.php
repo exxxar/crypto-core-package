@@ -164,7 +164,7 @@ class TransferController extends Controller
 
         $type = $request->type ?? 1;
         $error = $request->error ?? null;
-        $transfer->status = new ErrorForm($type, $error);
+        $transfer->status = json_encode((new ErrorForm($type ?? 0, $error ?? null))->toJSON());
         $transfer->save();
 
         return response()->json($transfer->status);
