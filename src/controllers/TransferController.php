@@ -15,6 +15,7 @@ use Cryptolib\CryptoCore\Models\Resources\TransferResource;
 use Cryptolib\CryptoCore\Models\Transfer;
 use Cryptolib\CryptoCore\Requests\TransferStoreRequest;
 use Cryptolib\CryptoCore\Requests\TransferUpdateRequest;
+use Cryptolib\CryptoCore\services\TransferIsHandeled;
 use Illuminate\Http\Request;
 
 class TransferController extends Controller
@@ -101,11 +102,21 @@ class TransferController extends Controller
 
     public function showByUserId($userId)
     {
-        $transfer = Transfer::where("sender_user_id", $userId)->orWhere("recipient_user_id", $userId)->get();
+        $transfers = Transfer::where("sender_user_id", $userId)
+            ->orWhere("recipient_user_id", $userId)
+            ->get();
 
-        $transferCollection = new TransferCollection($transfer);
+        $transfers_tmp = [];
 
-        return $transferCollection->collection;
+        foreach ($transfers as $transfer) {
+            $transferIsHandeled = new TransferIsHandeled($transfer);
+
+            if ($transferIsHandeled->check())
+                array_push($transfers_tmp, new TransferResource($transfer));
+        }
+
+
+        return response()->json($transfers_tmp);
     }
 
     public function showByTransferId($transferId)
