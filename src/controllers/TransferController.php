@@ -100,11 +100,18 @@ class TransferController extends Controller
 
     public function showByUserId($userId)
     {
-        $transfer = Transfer::where("sender_user_id", $userId)->orWhere("recipient_user_id", $userId)->get();
+        $transfers = Transfer::where("sender_user_id", $userId)
+            ->orWhere("recipient_user_id", $userId)
+            ->get();
 
-        $transferCollection = new TransferCollection($transfer);
+        $transfers_tmp = [];
 
-        return $transferCollection->collection;
+        foreach ($transfers as $transfer)
+            if ($transfer->status->type==0)
+                array_push($transfers_tmp, new TransferResource($transfer));
+
+
+        return response()->json($transfers_tmp);
     }
 
     public function showByTransferId($transferId)
