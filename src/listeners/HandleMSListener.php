@@ -37,16 +37,13 @@ class HandleMSListener implements ShouldQueue
      */
     public function handle(HandleMSEvent $event)
     {
-        Log::info("test");
+
         if (is_null($event))
             return $event;
 
         $userPayloadService = new UserPayloadServiceForServer();
-        Log::info("test2");
         $hrf = $userPayloadService->handler($event->transferForm);
-        Log::info("test3");
         event(new HandlerResultFormEvent($hrf));
-        Log::info("test4");
 
         return $event;
     }
