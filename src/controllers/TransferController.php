@@ -107,7 +107,7 @@ class TransferController extends Controller
         $transfers_tmp = [];
 
         foreach ($transfers as $transfer)
-            if ($transfer->status->type==0)
+            if ($transfer->status['type']==0)
                 array_push($transfers_tmp, new TransferResource($transfer));
 
 
@@ -174,7 +174,7 @@ class TransferController extends Controller
         $transfer->status = json_encode((new ErrorForm($type ?? 0, $error ?? null))->toJSON());
         $transfer->save();
 
-        return response()->json($transfer->status);
+        return response()->json((object)json_decode($transfer->status));
     }
 
 
