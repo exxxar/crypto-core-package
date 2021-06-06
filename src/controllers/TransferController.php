@@ -73,9 +73,9 @@ class TransferController extends Controller
         $transfer->data = $request->data;
 
         if ($request->status) {
-            $transfer->status = json_encode((new ErrorForm($request->status['type'] ?? 0, $request->status['error'] ?? null))->toJSON());
+            $transfer->status = (new ErrorForm($request->status['type'] ?? 0, $request->status['error'] ?? null))->toJSON();
         } else {
-            $transfer->status = json_encode((new ErrorForm())->toJSON());
+            $transfer->status = (new ErrorForm())->toJSON();
         }
 
         $transfer->save();
@@ -88,7 +88,7 @@ class TransferController extends Controller
             $transfer->created_at,
             $transfer->updated_at
         );
-        $transferForm->setStatus(json_decode($transfer->status));
+        $transferForm->setStatus($transfer->status);
 
         event(new HandleMSEvent($transferForm));
 
