@@ -17,6 +17,6 @@ class Transfer extends Model
     ];
 
     protected $casts = [
-      "status"=>"array"
+      "status"=>"object"
     ];
 }
