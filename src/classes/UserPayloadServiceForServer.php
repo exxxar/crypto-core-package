@@ -273,7 +273,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
         try {
             $this->client->request(
-                'POST',
+                'PUT',
                 "http://81.200.255.34:8080/cryptographic/trusted_devices/update",
                 [
                     'headers' => [
@@ -300,7 +300,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
         try {
             $response = $this->client->request(
-                'POST',
+                'PUT',
                 "http://81.200.255.34:8080/cryptographic/trusted_devices/update",
                 [
                     'headers' => [
