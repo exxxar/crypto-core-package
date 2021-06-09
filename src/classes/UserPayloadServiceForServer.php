@@ -41,16 +41,21 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
     public function getTrustedDevicePublicId(): TransferDataForm
     {
-        $response = $this->client->request(
-            'GET',
-            "$this->url/cryptolib/server/getTrustedDevicePublicId",
-            [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'X-API-VERSION' => '0.0.3'
-                ],
-            ]
-        );
+        try {
+            $response = $this->client->request(
+                'GET',
+                "$this->url/cryptolib/server/getTrustedDevicePublicId",
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'X-API-VERSION' => '0.0.3'
+                    ],
+                ]
+            );
+
+        } catch (\Exception $e) {
+
+        }
 
         $tmp = (object)$this->getContent($response);
 
@@ -62,16 +67,21 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
     public function onceEncryptedRequest(): TransferDataForm
     {
-        $response = $this->client->request(
-            'GET',
-            "$this->url/cryptolib/server/onceEncryptedRequest",
-            [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'X-API-VERSION' => '0.0.3'
-                ],
-            ]
-        );
+        try {
+            $response = $this->client->request(
+                'GET',
+                "$this->url/cryptolib/server/onceEncryptedRequest",
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'X-API-VERSION' => '0.0.3'
+                    ],
+                ]
+            );
+
+        } catch (\Exception $e) {
+
+        }
 
         $tmp = (object)$this->getContent($response);
 
@@ -83,17 +93,22 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
     public function handler(TransferForm $transfer): HandlerResultForm
     {
-        $response = $this->client->request(
-            'POST',
-            "$this->url/cryptolib/server/handler",
-            [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'X-API-VERSION' => '0.0.3'
-                ],
-                'json' => $transfer->toJSON(),
-            ]
-        );
+        try {
+            $response = $this->client->request(
+                'POST',
+                "$this->url/cryptolib/server/handler",
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'X-API-VERSION' => '0.0.3'
+                    ],
+                    'json' => $transfer->toJSON(),
+                ]
+            );
+
+        } catch (\Exception $e) {
+
+        }
 
         $content = (object)$this->getContent($response);
         $content->incomingTransfer = (object)$content->incomingTransfer;
@@ -136,17 +151,23 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
     public function twiceEncryptedRequest(TransferDataForm $transfer): TransferDataForm
     {
-        $response = $this->client->request(
-            'POST',
-            "$this->url/cryptolib/server/twiceEncryptedRequest",
-            [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'X-API-VERSION' => '0.0.3'
-                ],
-                'json' => $transfer->toJSON(),
-            ]
-        );
+
+        try {
+            $response = $this->client->request(
+                'POST',
+                "$this->url/cryptolib/server/twiceEncryptedRequest",
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'X-API-VERSION' => '0.0.3'
+                    ],
+                    'json' => $transfer->toJSON(),
+                ]
+            );
+
+        } catch (\Exception $e) {
+
+        }
 
         $tmp = (object)$this->getContent($response);
 
@@ -158,17 +179,23 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
     public function twiceEncryptedPermission(TransferDataForm $transfer): TransferDataForm
     {
-        $response = $this->client->request(
-            'POST',
-            "$this->url/cryptolib/server/twiceEncryptedPermission",
-            [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'X-API-VERSION' => '0.0.3'
-                ],
-                'json' => $transfer->toJSON(),
-            ]
-        );
+
+        try {
+            $response = $this->client->request(
+                'POST',
+                "$this->url/cryptolib/server/twiceEncryptedPermission",
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'X-API-VERSION' => '0.0.3'
+                    ],
+                    'json' => $transfer->toJSON(),
+                ]
+            );
+
+        } catch (\Exception $e) {
+
+        }
 
         $tmp = (object)$this->getContent($response);
 
@@ -180,18 +207,22 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
     public function dataRequest(TransferDataForm $transfer): TransferDataForm
     {
-        $response = $this->client->request(
-            'POST',
-            "$this->url/cryptolib/server/dataRequest",
-            [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'X-API-VERSION' => '0.0.3'
-                ],
-                'json' => $transfer->toJSON(),
-            ]
-        );
+        try {
+            $response = $this->client->request(
+                'POST',
+                "$this->url/cryptolib/server/dataRequest",
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'X-API-VERSION' => '0.0.3'
+                    ],
+                    'json' => $transfer->toJSON(),
+                ]
+            );
 
+        } catch (\Exception $e) {
+
+        }
         $tmp = (object)$this->getContent($response);
 
         $tdf = new TransferDataForm;
@@ -203,18 +234,22 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
     public function encryptedDataRequestV1($trustedDeviceData, TransferDataForm $transfer): TransferDataForm
     {
-        $response = $this->client->request(
-            'POST',
-            "$this->url/cryptolib/server/encryptedDataRequest/v1/$trustedDeviceData",
-            [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'X-API-VERSION' => '0.0.3'
-                ],
-                'json' => $transfer->toJSON(),
-            ]
-        );
+        try {
+            $response = $this->client->request(
+                'POST',
+                "$this->url/cryptolib/server/encryptedDataRequest/v1/$trustedDeviceData",
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'X-API-VERSION' => '0.0.3'
+                    ],
+                    'json' => $transfer->toJSON(),
+                ]
+            );
 
+        } catch (\Exception $e) {
+
+        }
         $tmp = (object)$this->getContent($response);
 
         $tdf = new TransferDataForm;
@@ -236,17 +271,22 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             "devicePrivateId" => "AAAAAAAB28E=",
         ];
 
-        $response = $this->client->request(
-            'POST',
-            "http://81.200.255.34:8080/cryptographic/trusted_devices/update",
-            [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'X-API-VERSION' => '0.0.3'
-                ],
-                'json' => $resetTD,
-            ]
-        );
+        try {
+            $this->client->request(
+                'POST',
+                "http://81.200.255.34:8080/cryptographic/trusted_devices/update",
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'X-API-VERSION' => '0.0.3'
+                    ],
+                    'json' => $resetTD,
+                ]
+            );
+
+        } catch (\Exception $e) {
+
+        }
 
 
         $resetTD = (object)[
@@ -258,22 +298,27 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             "devicePrivateId" => "AAAAAAAC2oE=",
         ];
 
-        $response = $this->client->request(
-            'POST',
-            "http://81.200.255.34:8080/cryptographic/trusted_devices/update",
-            [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'X-API-VERSION' => '0.0.3'
-                ],
-                'json' => $resetTD,
-            ]
-        );
+        try {
+            $response = $this->client->request(
+                'POST',
+                "http://81.200.255.34:8080/cryptographic/trusted_devices/update",
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'X-API-VERSION' => '0.0.3'
+                    ],
+                    'json' => $resetTD,
+                ]
+            );
+
+        } catch (\Exception $e) {
+
+        }
 
         $settingList = [
             (object)["key" => "serverUserId", "value" => "680a1958-8fab-4852-bc3f-ef36e0ce7dbc"],
             (object)["key" => "serverOauthToken", "value" => ""],
-            (object)["key" => "serverToCryptograpicUrl", "value" => ""],
+            (object)["key" => "serverToCryptograpicUrl", "value" => "http://10.43.3.34:8080/cryptographic"],
             (object)["key" => "serverTrustedDevicePublicId", "value" => base64_encode("001-0000-0000002-5")],
             (object)["key" => "serverTrustedDevicePrivateId", "value" => "AAAAAAAC2oE="],
             (object)["key" => "serverTrustedDeviceActualKey", "value" => "S6ULRaPVajA="],
@@ -284,19 +329,22 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             (object)["key" => "senderTrustedDeviceActualKey", "value" => "r7rJgnzgjIs="],
         ];
 
+        try {
+            $response = $this->client->request(
+                'POST',
+                "$this->url/cryptolib/server/settings",
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'X-API-VERSION' => '0.0.3'
+                    ],
+                    'json' => $settingList,
+                ]
+            );
 
-        $response = $this->client->request(
-            'POST',
-            "$this->url/cryptolib/server/settings",
-            [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'X-API-VERSION' => '0.0.3'
-                ],
-                'json' => json_encode($settingList),
-            ]
-        );
+        } catch (\Exception $e) {
 
+        }
 
         $transfer = new Transfer;
         $transfer->sender_user_id = "0624f73e-ab24-4f95-a30f-c4cb752aed5d";
