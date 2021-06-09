@@ -40,7 +40,7 @@ class TransferDataForm
 
     public function setData($data)
     {
-        $this->data = base64_encode($data);
+        $this->data =$data;
     }
 
 

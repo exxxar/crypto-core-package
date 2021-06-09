@@ -378,11 +378,11 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
         Log::info(print_r($tdf->toJSON(), true));
 
-        $testEncryptTranfser->data = $tdf->toBase64JSON();
+        $testEncryptTranfser->data = json_encode($tdf->toJSON());
         $testEncryptTranfser->status = (new ErrorForm(0))->toJSON();
         $testEncryptTranfser->save();
 
-        Log::info("Result encrypt=>" . print_r($tdf->toBase64JSON(), true));
+        Log::info("Result encrypt=>" . print_r($tdf->toJSON(), true));
 
         $tdf = new TransferDataForm;
         $tdf->setData($testEncryptTranfser->data);
