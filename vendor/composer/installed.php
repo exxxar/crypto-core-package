@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '8f074da9cb967fe9a04fc3d2d511525cce1612cc',
+    'reference' => '1e1b75e16b38a1d7014b91c7898ae930fad0f359',
     'name' => 'cryptolib/crypto-core',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '8f074da9cb967fe9a04fc3d2d511525cce1612cc',
+      'reference' => '1e1b75e16b38a1d7014b91c7898ae930fad0f359',
     ),
     'php-http/async-client-implementation' => 
     array (
@@ -72,13 +72,12 @@
     ),
     'symfony/http-client' => 
     array (
-      'pretty_version' => '5.x-dev',
-      'version' => '5.9999999.9999999.9999999-dev',
+      'pretty_version' => '5.4.x-dev',
+      'version' => '5.4.9999999.9999999-dev',
       'aliases' => 
       array (
-        0 => '9999999-dev',
       ),
-      'reference' => 'ddaf185f8348bfcb69ed652f6bc23a2a28c76283',
+      'reference' => '4d1be6d8409ecddb9d8955e791bf12b1b5b8f42f',
     ),
     'symfony/http-client-contracts' => 
     array (
@@ -88,7 +87,7 @@
       array (
         0 => '2.4.x-dev',
       ),
-      'reference' => '7e82f6084d7cae521a75ef2cb5c9457bbda785f4',
+      'reference' => '978a3f4036777215ced8bade9cc080c2e089cdf3',
     ),
     'symfony/http-client-implementation' => 
     array (
@@ -125,7 +124,7 @@
       array (
         0 => '2.4.x-dev',
       ),
-      'reference' => 'f040a30e04b57fbcc9c6cbcf4dbaa96bd318b9bb',
+      'reference' => '09c60683a07506fea0a43211969cf6b361919c1b',
     ),
   ),
 );

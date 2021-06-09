@@ -10,15 +10,15 @@ use Cryptolib\CryptoCore\Forms\TransferForm;
 
 interface iUserPayloadServiceForServer
 {
-    public function getTrustedDevicePublicId(): array;
+    public function getTrustedDevicePublicId(): TransferDataForm;
 
-    public function onceEncryptedRequest(): array;
+    public function onceEncryptedRequest(): TransferDataForm;
 
     public function handler(TransferForm $transfer): HandlerResultForm;
 
-    public function twiceEncryptedRequest(TransferDataForm $transfer): array;
+    public function twiceEncryptedRequest(TransferDataForm $transfer): TransferDataForm;
 
-    public function twiceEncryptedPermission(TransferDataForm $transfer): array;
+    public function twiceEncryptedPermission(TransferDataForm $transfer): TransferDataForm;
 
     public function dataRequest(TransferDataForm $transfer): TransferDataForm;
 

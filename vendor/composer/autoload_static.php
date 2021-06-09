@@ -4,12 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitfa1d4bca3e0e22f29028c8813ba7e305
+class ComposerStaticInit21e0a8733f8be123767e583dad591413
 {
     public static $files = array (
-        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
-        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -25,14 +25,6 @@ class ComposerStaticInitfa1d4bca3e0e22f29028c8813ba7e305
         array (
             'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
-        ),
-        'C' => 
-        array (
-            'Cryptolib\\CryptoCore\\' => 21,
-        ),
-        'B' => 
-        array (
-            'Buonzz\\Template\\' => 16,
         ),
     );
 
@@ -65,19 +57,44 @@ class ComposerStaticInitfa1d4bca3e0e22f29028c8813ba7e305
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Cryptolib\\CryptoCore\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
-        ),
-        'Buonzz\\Template\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/core-cryptolib/cryptointerface/src',
-        ),
     );
 
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'CreateConnectionsTable' => __DIR__ . '/../..' . '/src/migrations/2021_04_23_184936_create_connections_table.php',
+        'CreateJobsTable' => __DIR__ . '/../..' . '/src/migrations/2021_06_04_121400_create_jobs_table.php',
+        'CreateSettingsTable' => __DIR__ . '/../..' . '/src/migrations/2021_04_23_185906_create_settings_table.php',
+        'CreateTransfersTable' => __DIR__ . '/../..' . '/src/migrations/2021_04_23_185930_create_transfers_table.php',
+        'Cryptolib\\CryptoCore\\Classes\\SettingsService' => __DIR__ . '/../..' . '/src/classes/SettingsService.php',
+        'Cryptolib\\CryptoCore\\Classes\\UserPayloadServiceForServer' => __DIR__ . '/../..' . '/src/classes/UserPayloadServiceForServer.php',
+        'Cryptolib\\CryptoCore\\Controllers\\ConnectionController' => __DIR__ . '/../..' . '/src/controllers/ConnectionController.php',
+        'Cryptolib\\CryptoCore\\Controllers\\SettingController' => __DIR__ . '/../..' . '/src/controllers/SettingController.php',
+        'Cryptolib\\CryptoCore\\Controllers\\TestController' => __DIR__ . '/../..' . '/src/controllers/TestController.php',
+        'Cryptolib\\CryptoCore\\Controllers\\TransferController' => __DIR__ . '/../..' . '/src/controllers/TransferController.php',
+        'Cryptolib\\CryptoCore\\CryptoCoreServiceProvider' => __DIR__ . '/../..' . '/src/CryptoCoreServiceProvider.php',
+        'Cryptolib\\CryptoCore\\Exceptions\\ResponseStatusException' => __DIR__ . '/../..' . '/src/errors/ResponseStatusException.php',
+        'Cryptolib\\CryptoCore\\Forms\\TransferDataForm' => __DIR__ . '/../..' . '/src/forms/TransferDataForm.php',
+        'Cryptolib\\CryptoCore\\Forms\\TransferForm' => __DIR__ . '/../..' . '/src/forms/TransferForm.php',
+        'Cryptolib\\CryptoCore\\Middleware\\XApiVersionMiddleware' => __DIR__ . '/../..' . '/src/middleware/XApiVersionMiddleware.php',
+        'Cryptolib\\CryptoCore\\Models\\Connection' => __DIR__ . '/../..' . '/src/models/Connection.php',
+        'Cryptolib\\CryptoCore\\Models\\Resources\\ConnectionCollection' => __DIR__ . '/../..' . '/src/resources/ConnectionCollection.php',
+        'Cryptolib\\CryptoCore\\Models\\Resources\\ConnectionResource' => __DIR__ . '/../..' . '/src/resources/ConnectionResource.php',
+        'Cryptolib\\CryptoCore\\Models\\Resources\\TransferCollection' => __DIR__ . '/../..' . '/src/resources/TransferCollection.php',
+        'Cryptolib\\CryptoCore\\Models\\Resources\\TransferResource' => __DIR__ . '/../..' . '/src/resources/TransferResource.php',
+        'Cryptolib\\CryptoCore\\Models\\Setting' => __DIR__ . '/../..' . '/src/models/Setting.php',
+        'Cryptolib\\CryptoCore\\Models\\Transfer' => __DIR__ . '/../..' . '/src/models/Transfer.php',
+        'Cryptolib\\CryptoCore\\Requests\\ConnectionStoreRequest' => __DIR__ . '/../..' . '/src/requests/ConnectionStoreRequest.php',
+        'Cryptolib\\CryptoCore\\Requests\\ConnectionUpdateRequest' => __DIR__ . '/../..' . '/src/requests/ConnectionUpdateRequest.php',
+        'Cryptolib\\CryptoCore\\Requests\\TransferStoreRequest' => __DIR__ . '/../..' . '/src/requests/TransferStoreRequest.php',
+        'Cryptolib\\CryptoCore\\Requests\\TransferUpdateRequest' => __DIR__ . '/../..' . '/src/requests/TransferUpdateRequest.php',
+        'Cryptolib\\CryptoCore\\events\\HandleMSEvent' => __DIR__ . '/../..' . '/src/events/HandleMSEvent.php',
+        'Cryptolib\\CryptoCore\\events\\HandlerResultFormEvent' => __DIR__ . '/../..' . '/src/events/HandlerResultFormEvent.php',
+        'Cryptolib\\CryptoCore\\forms\\ErrorForm' => __DIR__ . '/../..' . '/src/forms/ErrorForm.php',
+        'Cryptolib\\CryptoCore\\forms\\HandlerResultForm' => __DIR__ . '/../..' . '/src/forms/HandlerResultForm.php',
+        'Cryptolib\\CryptoCore\\interfaces\\iUserPayloadServiceForServer' => __DIR__ . '/../..' . '/src/interfaces/iUserPayloadServiceForServer.php',
+        'Cryptolib\\CryptoCore\\listeners\\HandleMSListener' => __DIR__ . '/../..' . '/src/listeners/HandleMSListener.php',
+        'Cryptolib\\CryptoCore\\providers\\CryptoEventServiceProvider' => __DIR__ . '/../..' . '/src/providers/CryptoEventServiceProvider.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
@@ -87,9 +104,9 @@ class ComposerStaticInitfa1d4bca3e0e22f29028c8813ba7e305
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitfa1d4bca3e0e22f29028c8813ba7e305::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitfa1d4bca3e0e22f29028c8813ba7e305::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitfa1d4bca3e0e22f29028c8813ba7e305::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit21e0a8733f8be123767e583dad591413::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit21e0a8733f8be123767e583dad591413::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit21e0a8733f8be123767e583dad591413::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -13,6 +13,4 @@ return array(
     'Symfony\\Component\\HttpClient\\' => array($vendorDir . '/symfony/http-client'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
-    'Cryptolib\\CryptoCore\\' => array($baseDir . '/src'),
-    'Buonzz\\Template\\' => array($vendorDir . '/core-cryptolib/cryptointerface/src'),
 );

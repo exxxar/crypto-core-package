@@ -178,17 +178,17 @@
         },
         {
             "name": "symfony/http-client",
-            "version": "5.x-dev",
-            "version_normalized": "5.9999999.9999999.9999999-dev",
+            "version": "5.4.x-dev",
+            "version_normalized": "5.4.9999999.9999999-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "ddaf185f8348bfcb69ed652f6bc23a2a28c76283"
+                "reference": "4d1be6d8409ecddb9d8955e791bf12b1b5b8f42f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client/zipball/ddaf185f8348bfcb69ed652f6bc23a2a28c76283",
-                "reference": "ddaf185f8348bfcb69ed652f6bc23a2a28c76283",
+                "url": "https://api.github.com/repos/symfony/http-client/zipball/4d1be6d8409ecddb9d8955e791bf12b1b5b8f42f",
+                "reference": "4d1be6d8409ecddb9d8955e791bf12b1b5b8f42f",
                 "shasum": ""
             },
             "require": {
@@ -215,13 +215,12 @@
                 "nyholm/psr7": "^1.0",
                 "php-http/httplug": "^1.0|^2.0",
                 "psr/http-client": "^1.0",
-                "symfony/dependency-injection": "^4.4|^5.0",
-                "symfony/http-kernel": "^4.4.13|^5.1.5",
-                "symfony/process": "^4.4|^5.0",
-                "symfony/stopwatch": "^4.4|^5.0"
+                "symfony/dependency-injection": "^4.4|^5.0|^6.0",
+                "symfony/http-kernel": "^4.4.13|^5.1.5|^6.0",
+                "symfony/process": "^4.4|^5.0|^6.0",
+                "symfony/stopwatch": "^4.4|^5.0|^6.0"
             },
-            "time": "2021-05-15T13:12:37+00:00",
-            "default-branch": true,
+            "time": "2021-06-08T18:06:50+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -249,7 +248,7 @@
             "description": "Provides powerful methods to fetch HTTP resources synchronously or asynchronously",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-client/tree/v5.3.0-RC1"
+                "source": "https://github.com/symfony/http-client/tree/5.4"
             },
             "funding": [
                 {
@@ -274,12 +273,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client-contracts.git",
-                "reference": "7e82f6084d7cae521a75ef2cb5c9457bbda785f4"
+                "reference": "978a3f4036777215ced8bade9cc080c2e089cdf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client-contracts/zipball/7e82f6084d7cae521a75ef2cb5c9457bbda785f4",
-                "reference": "7e82f6084d7cae521a75ef2cb5c9457bbda785f4",
+                "url": "https://api.github.com/repos/symfony/http-client-contracts/zipball/978a3f4036777215ced8bade9cc080c2e089cdf3",
+                "reference": "978a3f4036777215ced8bade9cc080c2e089cdf3",
                 "shasum": ""
             },
             "require": {
@@ -288,7 +287,7 @@
             "suggest": {
                 "symfony/http-client-implementation": ""
             },
-            "time": "2021-04-11T23:07:08+00:00",
+            "time": "2021-06-07T14:51:59+00:00",
             "default-branch": true,
             "type": "library",
             "extra": {
@@ -331,7 +330,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/http-client-contracts/tree/v2.4.0"
+                "source": "https://github.com/symfony/http-client-contracts/tree/main"
             },
             "funding": [
                 {
@@ -414,7 +413,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php73/tree/main"
+                "source": "https://github.com/symfony/polyfill-php73/tree/v1.23.0"
             },
             "funding": [
                 {
@@ -501,7 +500,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/main"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.23.0"
             },
             "funding": [
                 {
@@ -526,22 +525,25 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/service-contracts.git",
-                "reference": "f040a30e04b57fbcc9c6cbcf4dbaa96bd318b9bb"
+                "reference": "09c60683a07506fea0a43211969cf6b361919c1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/f040a30e04b57fbcc9c6cbcf4dbaa96bd318b9bb",
-                "reference": "f040a30e04b57fbcc9c6cbcf4dbaa96bd318b9bb",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/09c60683a07506fea0a43211969cf6b361919c1b",
+                "reference": "09c60683a07506fea0a43211969cf6b361919c1b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.5",
                 "psr/container": "^1.1"
             },
+            "conflict": {
+                "ext-psr": "<1.1|>=2"
+            },
             "suggest": {
                 "symfony/service-implementation": ""
             },
-            "time": "2021-04-01T10:43:52+00:00",
+            "time": "2021-04-19T20:21:11+00:00",
             "default-branch": true,
             "type": "library",
             "extra": {
@@ -584,7 +586,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/service-contracts/tree/v2.4.0"
+                "source": "https://github.com/symfony/service-contracts/tree/main"
             },
             "funding": [
                 {

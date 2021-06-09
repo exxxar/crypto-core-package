@@ -3,10 +3,13 @@
 
 namespace Cryptolib\CryptoCore\Classes;
 
+use Cryptolib\CryptoCore\forms\ErrorForm;
 use Cryptolib\CryptoCore\forms\HandlerResultForm;
 use Cryptolib\CryptoCore\Forms\TransferDataForm;
 use Cryptolib\CryptoCore\Forms\TransferForm;
 use Cryptolib\CryptoCore\interfaces\iUserPayloadServiceForServer;
+use Cryptolib\CryptoCore\Models\Transfer;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpClient\CurlHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -36,7 +39,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $content;
     }
 
-    public function getTrustedDevicePublicId(): array
+    public function getTrustedDevicePublicId(): TransferDataForm
     {
         $response = $this->client->request(
             'GET',
@@ -49,10 +52,15 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             ]
         );
 
-        return $this->getContent($response);
+        $tmp = (object)$this->getContent($response);
+
+        $tdf = new TransferDataForm;
+        $tdf->setData($tmp->data);
+        $tdf->setType($tmp->type);
+        return $tdf;
     }
 
-    public function onceEncryptedRequest(): array
+    public function onceEncryptedRequest(): TransferDataForm
     {
         $response = $this->client->request(
             'GET',
@@ -65,7 +73,12 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             ]
         );
 
-        return $this->getContent($response);
+        $tmp = (object)$this->getContent($response);
+
+        $tdf = new TransferDataForm;
+        $tdf->setData($tmp->data);
+        $tdf->setType($tmp->type);
+        return $tdf;
     }
 
     public function handler(TransferForm $transfer): HandlerResultForm
@@ -82,11 +95,11 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             ]
         );
 
-        $content = (object) $this->getContent($response);
-        $content->incomingTransfer = (object) $content->incomingTransfer;
-        $content->incomingTransfer->status = (object) $content->incomingTransfer->status;
-        $content->outgoingTransfer = (object) $content->outgoingTransfer;
-        $content->outgoingTransfer->status = (object) $content->outgoingTransfer->status;
+        $content = (object)$this->getContent($response);
+        $content->incomingTransfer = (object)$content->incomingTransfer;
+        $content->incomingTransfer->status = (object)$content->incomingTransfer->status;
+        $content->outgoingTransfer = (object)$content->outgoingTransfer;
+        $content->outgoingTransfer->status = (object)$content->outgoingTransfer->status;
 
         $hrf = new HandlerResultForm();
 
@@ -121,7 +134,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $hrf;
     }
 
-    public function twiceEncryptedRequest(TransferDataForm $transfer): array
+    public function twiceEncryptedRequest(TransferDataForm $transfer): TransferDataForm
     {
         $response = $this->client->request(
             'POST',
@@ -135,10 +148,15 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             ]
         );
 
-        return $this->getContent($response);
+        $tmp = (object)$this->getContent($response);
+
+        $tdf = new TransferDataForm;
+        $tdf->setData($tmp->data);
+        $tdf->setType($tmp->type);
+        return $tdf;
     }
 
-    public function twiceEncryptedPermission(TransferDataForm $transfer): array
+    public function twiceEncryptedPermission(TransferDataForm $transfer): TransferDataForm
     {
         $response = $this->client->request(
             'POST',
@@ -152,7 +170,12 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             ]
         );
 
-        return $this->getContent($response);
+        $tmp = (object)$this->getContent($response);
+
+        $tdf = new TransferDataForm;
+        $tdf->setData($tmp->data);
+        $tdf->setType($tmp->type);
+        return $tdf;
     }
 
     public function dataRequest(TransferDataForm $transfer): TransferDataForm
@@ -169,14 +192,19 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             ]
         );
 
-        return $this->getContent($response);
+        $tmp = (object)$this->getContent($response);
+
+        $tdf = new TransferDataForm;
+        $tdf->setData($tmp->data);
+        $tdf->setType($tmp->type);
+        return $tdf;
     }
 
 
     public function encryptedDataRequestV1($trustedDeviceData, TransferDataForm $transfer): TransferDataForm
     {
         $response = $this->client->request(
-            'GET',
+            'POST',
             "$this->url/cryptolib/server/encryptedDataRequest/v1/$trustedDeviceData",
             [
                 'headers' => [
@@ -187,7 +215,135 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             ]
         );
 
-        return $this->getContent($response);
+        $tmp = (object)$this->getContent($response);
+
+        $tdf = new TransferDataForm;
+        $tdf->setData($tmp->data);
+        $tdf->setType($tmp->type);
+        return $tdf;
+    }
+
+
+    public function autoTest()
+    {
+
+        $resetTD = (object)[
+            "id" => 1,
+            "deviceActualKey" => "r7rJgnzgjIs=",
+            "deviceOldKey" => "r7rJgnzgjIs=",
+            "devicePublicId" => "001-0000-0000001-7",
+            "deviceFactoryKey" => "AAAAAAAAAAA=",
+            "devicePrivateId" => "AAAAAAAB28E=",
+        ];
+
+        $response = $this->client->request(
+            'POST',
+            "http://81.200.255.34:8080/cryptographic/trusted_devices/update",
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'X-API-VERSION' => '0.0.3'
+                ],
+                'json' => $resetTD,
+            ]
+        );
+
+
+        $resetTD = (object)[
+            "id" => 2,
+            "deviceActualKey" => "S6ULRaPVajA=",
+            "deviceOldKey" => "S6ULRaPVajA=",
+            "devicePublicId" => "001-0000-0000002-5",
+            "deviceFactoryKey" => "AAAAAAAAAAA=",
+            "devicePrivateId" => "AAAAAAAC2oE=",
+        ];
+
+        $response = $this->client->request(
+            'POST',
+            "http://81.200.255.34:8080/cryptographic/trusted_devices/update",
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'X-API-VERSION' => '0.0.3'
+                ],
+                'json' => $resetTD,
+            ]
+        );
+
+        $settingList = [
+            (object)["key" => "serverUserId", "value" => "680a1958-8fab-4852-bc3f-ef36e0ce7dbc"],
+            (object)["key" => "serverOauthToken", "value" => ""],
+            (object)["key" => "serverToCryptograpicUrl", "value" => ""],
+            (object)["key" => "serverTrustedDevicePublicId", "value" => base64_encode("001-0000-0000002-5")],
+            (object)["key" => "serverTrustedDevicePrivateId", "value" => "AAAAAAAC2oE="],
+            (object)["key" => "serverTrustedDeviceActualKey", "value" => "S6ULRaPVajA="],
+            (object)["key" => "serverTrustedDeviceFactoryKey", "value" => "AAAAAAAAAAA="],
+            (object)["key" => "serverTrustedDeviceOldKey", "value" => "S6ULRaPVajA="],
+            (object)["key" => "serverSelfInit", "value" => "true"],
+            (object)["key" => "serverNeedOauth", "value" => "false"],
+            (object)["key" => "senderTrustedDeviceActualKey", "value" => "r7rJgnzgjIs="],
+        ];
+
+
+        $response = $this->client->request(
+            'POST',
+            "$this->url/cryptolib/server/settings",
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'X-API-VERSION' => '0.0.3'
+                ],
+                'json' => json_encode($settingList),
+            ]
+        );
+
+
+        $transfer = new Transfer;
+        $transfer->sender_user_id = "0624f73e-ab24-4f95-a30f-c4cb752aed5d";
+        $transfer->recipient_user_id = "680a1958-8fab-4852-bc3f-ef36e0ce7dbc77";
+        $transfer->data = "eyJkYXRhIjoiZXlKelpXNWtaWEpVY25WemRHVmtSR1YyYVdObFVIVmliR2xqU1dRaU9pSk5SRUY0VEZSQmQwMUVRWFJOUkVGM1RVUkJkMDFUTURNaUxDSmxibU55ZVhCMFpXUkVZWFJoUlhoamFHRnVaMlZTWlhGMVpYTjBJam9pZVdWVFdXeDFhVzFCVnpkaVRYRlNWekY1T1hreVVVWk9Vek14UW01cE1reEtLekZ0Y1V4R1JGQjBUbXQwYkd4d2NtazFjVXBSVEZJMlIycHJRbmtyYWk4NFZIZFRkblZMTHk5TlBTSjkiLCJ0eXBlIjoxfQ==";
+        $transfer->status = (new ErrorForm(0))->toJSON();
+        $transfer->save();
+
+        $transferForm = new TransferForm(
+            $transfer->id,
+            $transfer->sender_user_id,
+            $transfer->recipient_user_id,
+            $transfer->data,
+            $transfer->created_at,
+            $transfer->updated_at
+        );
+        $transferForm->setStatus($transfer->status);
+
+        $userPayloadService = new UserPayloadServiceForServer();
+        $userPayloadService->handler($transferForm);
+
+        $testEncryptTranfser = new Transfer;
+        $testEncryptTranfser->sender_user_id = "0624f73e-ab24-4f95-a30f-c4cb752aed5d";
+        $testEncryptTranfser->recipient_user_id = "680a1958-8fab-4852-bc3f-ef36e0ce7dbc77";
+
+        $tdf = new TransferDataForm;
+        $tdf->setData("test data");
+        $tdf->setType(7);
+
+        $tdf = $this->encryptedDataRequestV1("AA==", $tdf);
+
+        Log::info(print_r($tdf->toJSON(), true));
+
+        $testEncryptTranfser->data = $tdf->toBase64JSON();
+        $testEncryptTranfser->status = (new ErrorForm(0))->toJSON();
+        $testEncryptTranfser->save();
+
+        Log::info("Result encrypt=>" . print_r($tdf->toBase64JSON(), true));
+
+        $tdf = new TransferDataForm;
+        $tdf->setData($testEncryptTranfser->data);
+        $tdf->setType(8);
+
+        $tdf = $this->dataRequest($tdf);
+
+        Log::info("Result decrypt=>" . print_r($tdf->getData(), true));
+
     }
 
 

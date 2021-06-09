@@ -59,6 +59,8 @@ Route::post("/transfer/status/{transferId}", [Cryptolib\CryptoCore\Controllers\T
 
 
 
+Route::get("/autotest", [Cryptolib\CryptoCore\Controllers\TestController::class, "autoTest"])
+    ->name("transfers.test");
 
 
 

@@ -58,6 +58,9 @@ class TransferDataForm
         return $obj;
     }
 
+    public function toBase64JSON() {
+        return base64_encode((string)$this->toJSON());
+    }
 
 
     public function toJSON()
