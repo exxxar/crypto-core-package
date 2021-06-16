@@ -141,10 +141,12 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         $incomingTransfer->setStatus($content->outgoingTransfer->status ?? null);
 
         $data = $content->data ?? null;
+        $payload = $content->payload ?? null;
 
         $hrf->setIncomingTransfer($incomingTransfer);
         $hrf->setOutgoingTransfer($outgoingTransfer);
         $hrf->setData($data);
+        $hrf->setPayload($payload);
 
         return $hrf;
     }
@@ -291,11 +293,11 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
         $resetTD = (object)[
             "id" => 2,
-            "deviceActualKey" => "S6ULRaPVajA=",
-            "deviceOldKey" => "S6ULRaPVajA=",
-            "devicePublicId" => "001-0000-0000002-5",
-            "deviceFactoryKey" => "AAAAAAAAAAA=",
-            "devicePrivateId" => "AAAAAAAC2oE=",
+            "deviceActualKey" => "o18lnjUP5KA=",
+            "deviceOldKey" => "o18lnjUP5KA=",
+            "devicePublicId" => "001-0001-0000000-8",
+            "deviceFactoryKey" => "o18lnjUP5KA=",
+            "devicePrivateId" => "AEAAAAAA1AE=",
         ];
 
         try {
@@ -319,11 +321,11 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             (object)["key" => "serverUserId", "value" => "680a1958-8fab-4852-bc3f-ef36e0ce7dbc"],
             (object)["key" => "serverOauthToken", "value" => ""],
             (object)["key" => "serverToCryptograpicUrl", "value" => "http://10.43.3.34:8080/cryptographic"],
-            (object)["key" => "serverTrustedDevicePublicId", "value" => base64_encode("001-0000-0000002-5")],
-            (object)["key" => "serverTrustedDevicePrivateId", "value" => "AAAAAAAC2oE="],
-            (object)["key" => "serverTrustedDeviceActualKey", "value" => "S6ULRaPVajA="],
-            (object)["key" => "serverTrustedDeviceFactoryKey", "value" => "AAAAAAAAAAA="],
-            (object)["key" => "serverTrustedDeviceOldKey", "value" => "S6ULRaPVajA="],
+            (object)["key" => "serverTrustedDevicePublicId", "value" => base64_encode("001-0001-0000000-8")],
+            (object)["key" => "serverTrustedDevicePrivateId", "value" => "AEAAAAAA1AE="],
+            (object)["key" => "serverTrustedDeviceActualKey", "value" => "o18lnjUP5KA="],
+            (object)["key" => "serverTrustedDeviceFactoryKey", "value" => "o18lnjUP5KA="],
+            (object)["key" => "serverTrustedDeviceOldKey", "value" => "o18lnjUP5KA="],
             (object)["key" => "serverSelfInit", "value" => "true"],
             (object)["key" => "serverNeedOauth", "value" => "false"],
             (object)["key" => "senderTrustedDeviceActualKey", "value" => "r7rJgnzgjIs="],
@@ -349,7 +351,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         $transfer = new Transfer;
         $transfer->sender_user_id = "0624f73e-ab24-4f95-a30f-c4cb752aed5d";
         $transfer->recipient_user_id = "680a1958-8fab-4852-bc3f-ef36e0ce7dbc77";
-        $transfer->data = "eyJkYXRhIjoiZXlKelpXNWtaWEpVY25WemRHVmtSR1YyYVdObFVIVmliR2xqU1dRaU9pSk5SRUY0VEZSQmQwMUVRWFJOUkVGM1RVUkJkMDFUTURNaUxDSmxibU55ZVhCMFpXUkVZWFJoUlhoamFHRnVaMlZTWlhGMVpYTjBJam9pZVdWVFdXeDFhVzFCVnpkaVRYRlNWekY1T1hreVVVWk9Vek14UW01cE1reEtLekZ0Y1V4R1JGQjBUbXQwYkd4d2NtazFjVXBSVEZJMlIycHJRbmtyYWk4NFZIZFRkblZMTHk5TlBTSjkiLCJ0eXBlIjoxfQ==";
+        $transfer->data = "eyJ0eXBlIjoxLCJkYXRhIjoiZXlKelpXNWtaWEpVY25WemRHVmtSR1YyYVdObFVIVmliR2xqU1dRaU9pSk5SRUY0VEZSQmQwMUVSWFJOUkVGM1RVUkJkMDFUTURJaUxDSmxibU55ZVhCMFpXUkVZWFJoUlhoamFHRnVaMlZTWlhGMVpYTjBJam9pUmpRek1URTBTRmR2V20weFJGSXlVa3A2YUdkdVpYUm5SMk40UjBGeFltUnRkVVJrVHpWQ04wbEtPVFpwYkU5aWJteFFSRFpvVnpoVFVtOWljbXBDTmxWVlZtYzJaRGg2Um1nMFBTSjkifQ==";
         $transfer->status = (new ErrorForm(0))->toJSON();
         $transfer->save();
 
