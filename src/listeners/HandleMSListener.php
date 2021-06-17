@@ -10,24 +10,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
 
-class HandleMSListener implements ShouldQueue
+class HandleMSListener
 {
-
-    public $connection = "database";
-
-    public $queue = "listeners";
-
-    public $delay = 1;
-
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->delay = config('crypto.dispatch_delay');
-    }
 
     /**
      * Handle the event.
