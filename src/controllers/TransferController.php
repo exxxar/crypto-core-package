@@ -275,39 +275,4 @@ class TransferController extends Controller
 
     }
 
-    public function createInfo(TransferStoreRequest $request)
-    {
-        /*   @PostMapping("/info/create")
-         * public ResponseEntity<JSONObject> createServerTransferUI(@RequestBody TransferForm transferForm)
-         * throws UnsupportedEncodingException, ParseException,
-         * InvalidKeyException, InvalidKeySpecException, NoSuchAlgorithmException,
-         * InvalidAlgorithmParameterException, NoSuchPaddingException, BadPaddingException, IllegalBlockSizeException {
-         *
-         * if (transferForm.getRecipientUserId().equals("0")) {
-         * JSONObject obj = new JSONObject();
-         * obj.put("message", "error");
-         * return new ResponseEntity<>(obj, HttpStatus.NOT_FOUND);
-         * }
-         *
-         * Transfer transfer = new Transfer();
-         * transfer.setRecipientUserId(transferForm.getRecipientUserId());
-         * transfer.setSenderUserId(ownUserId);
-         *
-         * TransferDataForm tdf = new TransferDataForm();
-         * tdf.setType(InfoRequestType.data.getValue());
-         * tdf.setData(transferForm.getData());
-         *
-         * tdf = userPayloadServiceForServer.encryptedDataRequest("AA==", tdf);
-         *
-         * transfer.setData(tdf.toBase64JSON());
-         * transfer.setStatusType(0);
-         * transferRepository.save(transfer);
-         *
-         * JSONObject obj = new JSONObject();
-         * obj.put("message", "success");
-         * obj.put("recipientUserId", transfer.getRecipientUserId());
-         * obj.put("data", transfer.getData());
-         * return new ResponseEntity<>(obj, HttpStatus.OK);
-         * }*/
-    }
 }

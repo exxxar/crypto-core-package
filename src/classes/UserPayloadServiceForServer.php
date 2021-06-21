@@ -3,8 +3,10 @@
 
 namespace Cryptolib\CryptoCore\Classes;
 
+use Cryptolib\CryptoCore\forms\EncryptedDataForm;
 use Cryptolib\CryptoCore\forms\ErrorForm;
 use Cryptolib\CryptoCore\forms\HandlerResultForm;
+use Cryptolib\CryptoCore\forms\PayloadDataForm;
 use Cryptolib\CryptoCore\Forms\TransferDataForm;
 use Cryptolib\CryptoCore\Forms\TransferForm;
 use Cryptolib\CryptoCore\interfaces\iUserPayloadServiceForServer;
@@ -207,7 +209,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $tdf;
     }
 
-    public function dataRequest(TransferDataForm $transfer): TransferDataForm
+    public function encryptData(TransferDataForm $transfer): TransferDataForm
     {
         try {
             $response = $this->client->request(
@@ -233,13 +235,12 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $tdf;
     }
 
-
-    public function encryptedDataRequestV1($trustedDeviceData, TransferDataForm $transfer): TransferDataForm
+    public function decryptData(EncryptedDataForm $transfer): PayloadDataForm
     {
         try {
             $response = $this->client->request(
                 'POST',
-                "$this->url/cryptolib/server/encryptedDataRequest/v1/$trustedDeviceData",
+                "$this->url/cryptolib/server/encryptedDataRequest",
                 [
                     'headers' => [
                         'Accept' => 'application/json',
@@ -257,9 +258,16 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         $tdf = new TransferDataForm;
         $tdf->setData($tmp->data);
         $tdf->setType($tmp->type);
-        return $tdf;
-    }
 
+        $payload = json_decode(base64_decode($tmp->data));
+
+        $pdf = new PayloadDataForm;
+        $pdf->setTransferDataForm($tdf);
+        $pdf->setTrustedDeviceData($payload->trustedDeviceData);
+        $pdf->setUserData($payload->userData);
+
+        return $pdf;
+    }
 
     public function autoTest()
     {
@@ -395,7 +403,6 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         Log::info("Result decrypt=>" . print_r($tdf->getData(), true));
 
     }
-
 
     public static function routes()
     {

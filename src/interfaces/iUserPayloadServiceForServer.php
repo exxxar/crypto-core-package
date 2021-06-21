@@ -4,7 +4,9 @@
 namespace Cryptolib\CryptoCore\interfaces;
 
 
+use Cryptolib\CryptoCore\forms\EncryptedDataForm;
 use Cryptolib\CryptoCore\forms\HandlerResultForm;
+use Cryptolib\CryptoCore\forms\PayloadDataForm;
 use Cryptolib\CryptoCore\Forms\TransferDataForm;
 use Cryptolib\CryptoCore\Forms\TransferForm;
 
@@ -20,9 +22,9 @@ interface iUserPayloadServiceForServer
 
     public function twiceEncryptedPermission(TransferDataForm $transfer): TransferDataForm;
 
-    public function dataRequest(TransferDataForm $transfer): TransferDataForm;
+    public function encryptData(TransferDataForm $transfer): TransferDataForm;
 
-    public function encryptedDataRequestV1($trustedDeviceData, TransferDataForm $transfer): TransferDataForm;
+    public function decryptData(EncryptedDataForm $transfer): PayloadDataForm;
 
 
 }
