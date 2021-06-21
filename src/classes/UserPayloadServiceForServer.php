@@ -209,12 +209,12 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $tdf;
     }
 
-    public function encryptData(TransferDataForm $transfer): TransferDataForm
+    public function encryptData(EncryptedDataForm  $transfer): TransferDataForm
     {
         try {
             $response = $this->client->request(
                 'POST',
-                "$this->url/cryptolib/server/dataRequest",
+                "$this->url/cryptolib/server/encryptedDataRequest",
                 [
                     'headers' => [
                         'Accept' => 'application/json',
@@ -235,12 +235,12 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $tdf;
     }
 
-    public function decryptData(EncryptedDataForm $transfer): PayloadDataForm
+    public function decryptData(TransferDataForm $transfer): PayloadDataForm
     {
         try {
             $response = $this->client->request(
                 'POST',
-                "$this->url/cryptolib/server/encryptedDataRequest",
+                "$this->url/cryptolib/server/dataRequest",
                 [
                     'headers' => [
                         'Accept' => 'application/json',
