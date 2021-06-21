@@ -12,14 +12,22 @@ class UnpackedUserDataForm
     protected $size;
     protected $pointId;
     protected $checksum;
+    protected $userData;
 
     public function __construct(String $userData)
     {
+        $this->userData = $userData;
+
         $this->command = unpack("n", $userData, 0);
         $this->datetime = unpack("J", $userData, 2);
         $this->size = unpack("N", $userData, 10);
         $this->pointId = unpack("N", $userData, 14);
         $this->checksum = unpack("N", $userData, 18);
+    }
+
+    public function isValid(): bool
+    {
+        return crc32($this->userData) == $this->checksum;
     }
 
     /**
@@ -93,6 +101,23 @@ class UnpackedUserDataForm
     {
         return $this->pointId;
     }
+
+    /**
+     * @return String
+     */
+    public function getUserData(): String
+    {
+        return $this->userData;
+    }
+
+    /**
+     * @param String $userData
+     */
+    public function setUserData(String $userData)
+    {
+        $this->userData = $userData;
+    }
+
 
     /**
      * @param array|false $pointId
