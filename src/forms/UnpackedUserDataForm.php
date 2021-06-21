@@ -16,13 +16,13 @@ class UnpackedUserDataForm
 
     public function __construct(String $userData)
     {
-        $this->userData = $userData;
+        $this->userData = base64_decode($userData);
 
-        $this->command = unpack("n", $userData, 0);
-        $this->datetime = unpack("J", $userData, 2);
-        $this->size = unpack("N", $userData, 10);
-        $this->pointId = unpack("N", $userData, 14);
-        $this->checksum = unpack("N", $userData, 18);
+        $this->command = unpack("n",   $this->userData, 0);
+        $this->datetime = unpack("J",   $this->userData, 2);
+        $this->size = unpack("N",   $this->userData, 10);
+        $this->pointId = unpack("N",   $this->userData, 14);
+        $this->checksum = unpack("N",   $this->userData, 18);
     }
 
     public function isValid(): bool
