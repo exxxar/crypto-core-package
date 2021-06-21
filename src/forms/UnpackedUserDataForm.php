@@ -15,11 +15,11 @@ class UnpackedUserDataForm
 
     public function __construct(String $userData)
     {
-        $this->command = unpack("n",$userData,0);
-        $this->datetime = unpack("J",$userData,2);
-        $this->size = unpack("N",$userData,10);
-        $this->pointId = unpack("N",$userData,14);
-        $this->checksum = unpack("N",$userData,18);
+        $this->command = unpack("n", $userData, 0);
+        $this->datetime = unpack("J", $userData, 2);
+        $this->size = unpack("N", $userData, 10);
+        $this->pointId = unpack("N", $userData, 14);
+        $this->checksum = unpack("N", $userData, 18);
     }
 
     /**
@@ -86,5 +86,36 @@ class UnpackedUserDataForm
         $this->checksum = $checksum;
     }
 
+    /**
+     * @return array|false
+     */
+    public function getPointId()
+    {
+        return $this->pointId;
+    }
+
+    /**
+     * @param array|false $pointId
+     */
+    public function setPointId($pointId)
+    {
+        $this->pointId = $pointId;
+    }
+
+    public function toJSON()
+    {
+        return (object)[
+            "command" => $this->command,
+            "datetime" => $this->datetime,
+            "size" => $this->size,
+            "pointId" => $this->pointId,
+            "checksum" => $this->checksum
+        ];
+    }
+
+    public function toJSONString()
+    {
+        return json_encode($this->toJSON());
+    }
 
 }
