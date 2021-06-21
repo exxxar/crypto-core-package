@@ -27,7 +27,7 @@ class UnpackedUserDataForm
 
     public function isValid(): bool
     {
-        return crc32($this->userData) == $this->checksum;
+        return crc32($this->command.$this->datetime.$this->size.$this->pointId) == $this->checksum;
     }
 
     /**
