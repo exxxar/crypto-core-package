@@ -14,7 +14,7 @@ class PayloadDataForm
     /**
      * @return mixed
      */
-    public function getTransferDataForm():TransferDataForm
+    public function getTransferDataForm(): TransferDataForm
     {
         return $this->transferDataForm;
     }
@@ -30,7 +30,7 @@ class PayloadDataForm
     /**
      * @return mixed
      */
-    public function getUserData():string
+    public function getUserData(): string
     {
         return $this->userData;
     }
@@ -60,10 +60,20 @@ class PayloadDataForm
     }
 
 
-    public function getUnpackedData(): UnpackedUserDataForm
+    public function getUnpackedUserData(): UnpackedDataForm
     {
-        return new UnpackedUserDataForm($this->getUserData());
+        return new UnpackedDataForm($this->getUserData());
     }
 
+
+    public function getUnpackedTrustedDeviceData(): UnpackedDataForm
+    {
+        return new UnpackedDataForm($this->getTrustedDeviceData());
+    }
+
+    public function getPayload()
+    {
+        return $this->getUnpackedUserData()->getPayloadData();
+    }
 
 }

@@ -18,6 +18,11 @@ class EncryptedDataForm
 
     }
 
+    public function setPackedDataForm(PackedDataForm $packedDataForm){
+        $this->setTrustedDeviceData($packedDataForm->getOutputTrustedDeviceData());
+        $this->setUserData($packedDataForm->getOutputUserData());
+    }
+
 
     public function getType(): int
     {
@@ -29,50 +34,31 @@ class EncryptedDataForm
         $this->type = $type;
     }
 
-    public function getUserDataInBase64(): String
-    {
-        return $this->userData;
-    }
 
-    public function getTrustedDeviceDataInBase64(): String
-    {
-        return $this->trustedDeviceData;
-    }
-
-
-    public function getTrustedDeviceData(): String
+    public function getTrustedDeviceData(bool $needDecode = false): String
     {
         if (!is_null($this->trustedDeviceData)) {
-            return base64_decode($this->trustedDeviceData);
+            return $needDecode ? base64_decode($this->trustedDeviceData) : $this->trustedDeviceData;
         } else {
             return "";
         }
     }
 
-    public function getUserData(): String
+    public function getUserData(bool $needDecode = false): String
     {
-        return base64_decode($this->userData);
+        return $needDecode ? base64_decode($this->userData) : $this->userData;
     }
 
-    public function setUserData(String $userData)
+    public function setUserData(String $userData, bool $needEncode = false)
     {
-        $this->userData = base64_encode($userData);
+        $this->userData = $needEncode ? base64_encode($userData) : $userData;
     }
 
-    public function setTrustedDeviceData(String $trustedDeviceData)
+    public function setTrustedDeviceData(String $trustedDeviceData, bool $needEncode = false)
     {
-        $this->trustedDeviceData = base64_encode($trustedDeviceData);
+        $this->trustedDeviceData = $needEncode ? base64_encode($trustedDeviceData) : $trustedDeviceData;
     }
 
-    public function setUserDataBase64(String $base64userData)
-    {
-        $this->userData = $base64userData;
-    }
-
-    public function setTrustedDeviceDataBase64(String $base64trustedDeviceData)
-    {
-        $this->trustedDeviceData = $base64trustedDeviceData;
-    }
 
     public function toJSON()
     {
