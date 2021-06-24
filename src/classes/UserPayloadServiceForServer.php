@@ -113,6 +113,9 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         }
 
         $content = (object)$this->getContent($response);
+
+        Log::info("handler=>".print_r($content,true));
+
         $content->incomingTransfer = (object)$content->incomingTransfer;
         $content->incomingTransfer->status = (object)$content->incomingTransfer->status;
         $content->outgoingTransfer = (object)$content->outgoingTransfer;
@@ -229,6 +232,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         }
         $tmp = (object)$this->getContent($response);
 
+        Log::info("encryptData=>".print_r($tmp,true));
         $tdf = new TransferDataForm;
         $tdf->setData($tmp->data);
         $tdf->setType($tmp->type);
@@ -254,6 +258,8 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
         }
         $tmp = (object)$this->getContent($response);
+
+        Log::info("decryptData=>".print_r($tmp,true));
 
         $tdf = new TransferDataForm;
         $tdf->setData($tmp->data);

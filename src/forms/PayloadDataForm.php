@@ -22,7 +22,7 @@ class PayloadDataForm
     /**
      * @param mixed $transferDataForm
      */
-    public function setTransferDataForm($transferDataForm)
+    public function setTransferDataForm(TransferDataForm $transferDataForm)
     {
         $this->transferDataForm = $transferDataForm;
     }
@@ -38,7 +38,7 @@ class PayloadDataForm
     /**
      * @param mixed $userData
      */
-    public function setUserData($userData)
+    public function setUserData(string $userData)
     {
         $this->userData = $userData;
     }
@@ -54,7 +54,7 @@ class PayloadDataForm
     /**
      * @param mixed $trustedDeviceData
      */
-    public function setTrustedDeviceData($trustedDeviceData)
+    public function setTrustedDeviceData(string $trustedDeviceData)
     {
         $this->trustedDeviceData = $trustedDeviceData;
     }

@@ -25,7 +25,7 @@ class UnpackedDataForm
     protected $inputData;
 
 
-    public function __construct(String $inputData)
+    public function __construct(string $inputData)
     {
         $this->inputData = base64_decode($inputData);
 
@@ -105,7 +105,7 @@ class UnpackedDataForm
     /**
      * @return array|false
      */
-    public function getPayloadData()
+    public function getPayloadData(): string
     {
         return $this->payloadData;
     }
