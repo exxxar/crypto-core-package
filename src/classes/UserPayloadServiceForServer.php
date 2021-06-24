@@ -287,9 +287,10 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         $tdf->setData("C4Pt9WcSx++IkCpAVNQ5iDuu0wHChe9PTkpSG03DYNSbIz2voXl5H7OUeMsU39j9/mGHsCKKORmV53GnYvhwlGOQQiR81w+U1jkytXhnSM40esgWzEakhQ+JCXRqHR9pleURMeUvej33BzrhOmuB+v4PwCkab63kzhvxEEsWnU3VSEGWWLpV3QI1avk+u3uPQWD7JlM06RMHflZB0x+6xw==");
         $tdf->setType(8);
 
-        $tdf = $this->dataRequest($tdf);
+        $tdf = $this->decryptData($tdf);
 
-        Log::info("Result decrypt=>" . print_r($tdf->getData(), true));
+        Log::info("Result user decrypt=>" . print_r($tdf->getUserData(), true));
+        Log::info("Result trusted device decrypt=>" . print_r($tdf->getTrustedDeviceData(), true));
     }
 
     public function autoTest()
