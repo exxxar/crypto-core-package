@@ -234,7 +234,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
         Log::info("encryptData=>".print_r($tmp,true));
         $tdf = new TransferDataForm;
-        $tdf->setData($tmp->data);
+        $tdf->setData(isset($tmp->data)?$tmp->data:"");
         $tdf->setType($tmp->type);
         return $tdf;
     }
@@ -262,7 +262,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         Log::info("decryptData=>".print_r($tmp,true));
 
         $tdf = new TransferDataForm;
-        $tdf->setData($tmp->data);
+        $tdf->setData(isset($tmp->data)?$tmp->data:"");
         $tdf->setType($tmp->type);
 
         $payload = json_decode(base64_decode($tmp->data));
