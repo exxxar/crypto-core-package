@@ -64,18 +64,14 @@ class EncryptedDataForm
     {
         return (object)[
             "type" => $this->type,
-            "userData" => $this->userData,
-            "trustedDeviceData" => $this->trustedDeviceData ?? null
+            "userData" => $this->getUserData()??base64_encode(""),
+            "trustedDeviceData" => $this->getTrustedDeviceData() ?? base64_encode("")
         ];
     }
 
     public function toBase64JSON(): String
     {
-        return base64_encode([
-            "type" => $this->type,
-            "userData" => $this->userData,
-            "trustedDeviceData" => $this->trustedDeviceData ?? null
-        ]);
+        return base64_encode($this->toJSON());
     }
 
 

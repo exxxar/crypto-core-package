@@ -35,6 +35,12 @@ class PackedDataForm
             $checksumTrustedDeviceData
         );
 
+        if ($this->outputUserData === false)
+            $this->outputUserData = "";
+
+        if ($this->outputTrustedDeviceData === false)
+            $this->outputTrustedDeviceData = "";
+
     }
 
     public function getOutputUserData()
