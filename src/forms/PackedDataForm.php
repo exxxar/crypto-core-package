@@ -17,7 +17,7 @@ class PackedDataForm
     {
         $checksumUserData = crc32(0x8000 . "" . (new Carbon())->timestamp . "22" . $outputNumer);
 
-        $this->outputUserData = pack("nJNN", 0x8000,
+        $this->outputUserData = pack("nJNNN", 0x8000,
             (new Carbon())->timestamp,
             22,
             $outputNumer,
@@ -28,7 +28,7 @@ class PackedDataForm
 
         $checksumTrustedDeviceData = crc32(0x4001 . "" . (new Carbon())->timestamp . "17" . $outputPayload);
 
-        $this->outputTrustedDeviceData = pack("nJNC", 0x4001,
+        $this->outputTrustedDeviceData = pack("nJNCN", 0x4001,
             (new Carbon())->timestamp,
             17,
             $outputPayload,
