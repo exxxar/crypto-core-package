@@ -11,6 +11,15 @@ class PayloadDataForm
     protected $userData;
     protected $trustedDeviceData;
 
+
+    public function __construct()
+    {
+
+       $this->transferDataForm = null;
+        $this->userData = null;
+        $this->trustedDeviceData = null;
+    }
+
     /**
      * @return mixed
      */
@@ -62,18 +71,17 @@ class PayloadDataForm
 
     public function getUnpackedUserData(): UnpackedDataForm
     {
-        return new UnpackedDataForm($this->getUserData());
+        return !is_null($this->getUserData())?new UnpackedDataForm($this->getUserData()):null;
     }
-
 
     public function getUnpackedTrustedDeviceData(): UnpackedDataForm
     {
-        return new UnpackedDataForm($this->getTrustedDeviceData());
+        return !is_null($this->getUserData())?new UnpackedDataForm($this->getTrustedDeviceData()):null;
     }
 
     public function getPayload()
     {
-        return $this->getUnpackedUserData()->getPayloadData();
+        return !is_null($this->getUserData())?$this->getUnpackedUserData()->getPayloadData(): null;
     }
 
 }

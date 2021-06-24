@@ -114,7 +114,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
         $content = (object)$this->getContent($response);
 
-        Log::info("handler=>".print_r($content,true));
+        Log::info("handler=>" . print_r($content, true));
 
         $content->incomingTransfer = (object)$content->incomingTransfer;
         $content->incomingTransfer->status = (object)$content->incomingTransfer->status;
@@ -212,7 +212,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $tdf;
     }
 
-    public function encryptData(EncryptedDataForm  $transfer): TransferDataForm
+    public function encryptData(EncryptedDataForm $transfer): TransferDataForm
     {
         try {
             $response = $this->client->request(
@@ -232,9 +232,9 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         }
         $tmp = (object)$this->getContent($response);
 
-        Log::info("encryptData=>".print_r($tmp,true));
+        Log::info("encryptData=>" . print_r($tmp, true));
         $tdf = new TransferDataForm;
-        $tdf->setData(isset($tmp->data)?$tmp->data:"");
+        $tdf->setData(isset($tmp->data) ? $tmp->data : "");
         $tdf->setType($tmp->type);
         return $tdf;
     }
@@ -259,13 +259,19 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         }
         $tmp = (object)$this->getContent($response);
 
-        Log::info("decryptData=>".print_r($tmp,true));
+        Log::info("decryptData=>" . print_r($tmp, true));
 
         $tdf = new TransferDataForm;
-        $tdf->setData(isset($tmp->data)?$tmp->data:"");
+        $tdf->setData(isset($tmp->data) ? $tmp->data : null);
         $tdf->setType($tmp->type);
 
-        $payload = json_decode(base64_decode($tmp->data));
+        if (is_null($tdf->getData())) {
+            $pdf = new PayloadDataForm;
+            $pdf->setTransferDataForm($tdf);
+            return $pdf;
+        }
+
+        $payload = json_decode(base64_decode($tdf->getData()));
 
         $pdf = new PayloadDataForm;
         $pdf->setTransferDataForm($tdf);
