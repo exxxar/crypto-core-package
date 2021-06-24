@@ -265,7 +265,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         $tdf->setData(isset($tmp->data) ? $tmp->data : null);
         $tdf->setType($tmp->type);
 
-        if (is_null($tdf->getData())) {
+        if (is_null($tdf->getData())||empty($tdf->getData())) {
             $pdf = new PayloadDataForm;
             $pdf->setTransferDataForm($tdf);
             return $pdf;

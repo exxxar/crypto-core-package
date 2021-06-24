@@ -39,7 +39,7 @@ class PayloadDataForm
     /**
      * @return mixed
      */
-    public function getUserData(): string
+    public function getUserData()
     {
         return $this->userData ;
     }
@@ -55,7 +55,7 @@ class PayloadDataForm
     /**
      * @return mixed
      */
-    public function getTrustedDeviceData(): string
+    public function getTrustedDeviceData()
     {
         return $this->trustedDeviceData ;
     }
