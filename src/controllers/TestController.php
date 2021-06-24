@@ -38,5 +38,14 @@ class TestController extends Controller
         ]);
     }
 
+    public function decryptTest()
+    {
+        $this->userPayloadService->decryptTest();
+
+        return response()->json([
+            "message" => "Test completed"
+        ]);
+    }
+
 
 }
