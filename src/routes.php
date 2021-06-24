@@ -62,5 +62,8 @@ Route::get("/autotest", [Cryptolib\CryptoCore\Controllers\TestController::class,
     ->middleware(["x-api:0.0.3"]);
 
 
+Route::get("/decrypttest", [Cryptolib\CryptoCore\Controllers\TestController::class, "decryptTest"])
+    ->name("transfers.test2");
+
 
 
