@@ -239,9 +239,10 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $tdf;
     }
 
-    public function decryptData(TransferDataForm $transfer): PayloadDataForm
+    public function decryptData(TransferForm $transfer): PayloadDataForm
     {
         try {
+
             $response = $this->client->request(
                 'POST',
                 "$this->url/cryptolib/server/dataRequest",
@@ -259,19 +260,13 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         }
         $tmp = (object)$this->getContent($response);
 
-        Log::info("decryptData=>" . print_r($tmp, true));
+        Log::info("decryptData=>" . print_r($tmp->data, true));
 
         $tdf = new TransferDataForm;
-        $tdf->setData(isset($tmp->data) ? $tmp->data : null);
+        $tdf->setData( $tmp->data);
         $tdf->setType($tmp->type);
 
-        if (is_null($tdf->getData())||empty($tdf->getData())) {
-            $pdf = new PayloadDataForm;
-            $pdf->setTransferDataForm($tdf);
-            return $pdf;
-        }
-
-        $payload = json_decode(base64_decode($tdf->getData()));
+        $payload = json_decode($tdf->getData());
 
         $pdf = new PayloadDataForm;
         $pdf->setTransferDataForm($tdf);
@@ -282,12 +277,25 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
     }
 
     public function decryptTest(){
-        $tdf = new TransferDataForm;
 
-        $tdf->setData("C4Pt9WcSx++IkCpAVNQ5iDuu0wHChe9PTkpSG03DYNSbIz2voXl5H7OUeMsU39j9/mGHsCKKORmV53GnYvhwlGOQQiR81w+U1jkytXhnSM40esgWzEakhQ+JCXRqHR9pleURMeUvej33BzrhOmuB+v4PwCkab63kzhvxEEsWnU3VSEGWWLpV3QI1avk+u3uPQWD7JlM06RMHflZB0x+6xw==");
-        $tdf->setType(8);
+        $transfer = new Transfer;
+        $transfer->sender_user_id = "0624f73e-ab24-4f95-a30f-c4cb752aed5d";
+        $transfer->recipient_user_id = "680a1958-8fab-4852-bc3f-ef36e0ce7dbc77";
+        $transfer->data = "eyJkYXRhIjoiQzRQdDlXY1N4KytJa0NwQVZOUTVpRHV1MHdIQ2hlOVBUa3BTRzAzRFlOU2JJejJ2b1hsNUg3T1VlTXNVMzlqOS9tR0hzQ0tLT1JtVjUzR25Zdmh3bEdPUVFpUjgxdytVMWpreXRYaG5TTTQwZXNnV3pFYWtoUStKQ1hScUhSOXBsZVVSTWVVdmVqMzNCenJoT211Qit2NFB3Q2thYjYza3podnhFRXNXblUzVlNFR1dXTHBWM1FJMWF2ayt1M3VQUVdEN0psTTA2Uk1IZmxaQjB4KzZ4dz09IiwidHlwZSI6OH0=";
+        $transfer->status = (new ErrorForm(0))->toJSON();
+        $transfer->save();
 
-        $tdf = $this->decryptData($tdf);
+        $transferForm = new TransferForm(
+            $transfer->id,
+            $transfer->sender_user_id,
+            $transfer->recipient_user_id,
+            $transfer->data,
+            $transfer->created_at,
+            $transfer->updated_at
+        );
+        $transferForm->setStatus($transfer->status);
+
+        $tdf = $this->decryptData($transferForm);
 
         Log::info("Result user decrypt=>" . print_r($tdf->getUserData(), true));
         Log::info("Result trusted device decrypt=>" . print_r($tdf->getTrustedDeviceData(), true));
@@ -408,7 +416,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         $tdf->setData("test data");
         $tdf->setType(7);
 
-        $tdf = $this->encryptedDataRequestV1("AA==", $tdf);
+        $tdf = $this->encryptData("AA==", $tdf);
 
         Log::info(print_r($tdf->toJSON(), true));
 

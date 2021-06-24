@@ -22,7 +22,7 @@ interface iUserPayloadServiceForServer
 
     public function twiceEncryptedPermission(TransferDataForm $transfer): TransferDataForm;
 
-    public function decryptData(TransferDataForm $transfer):PayloadDataForm ;
+    public function decryptData(TransferForm $transfer):PayloadDataForm ;
 
     public function encryptData(EncryptedDataForm $transfer): TransferDataForm;
 
