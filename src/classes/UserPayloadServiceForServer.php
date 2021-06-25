@@ -219,7 +219,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         try {
             $response = $this->client->request(
                 'POST',
-                "http://localhost:8080/crypto-service/cryptolib/server/encryptedDataRequest",
+                "$this->url/cryptolib/server/encryptedDataRequest",
                 [
                     'headers' => [
                         'Accept' => 'application/json',
