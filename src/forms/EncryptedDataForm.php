@@ -59,11 +59,16 @@ class EncryptedDataForm
         $this->trustedDeviceData = $needEncode ? base64_encode($trustedDeviceData) : $trustedDeviceData;
     }
 
+    public function getTransferDataForm(): TransferDataForm{
+        $tdf = new TransferDataForm();
+        $tdf->setType($this->type);
+        $tdf->setData($this->toBase64JSON());
+        return $tdf;
+    }
 
     public function toJSON()
     {
         return (object)[
-            "type" => $this->type,
             "userData" => $this->getUserData()??base64_encode(""),
             "trustedDeviceData" => $this->getTrustedDeviceData() ?? base64_encode("")
         ];

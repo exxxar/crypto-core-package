@@ -212,8 +212,9 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $tdf;
     }
 
-    public function encryptData(EncryptedDataForm $transfer): TransferDataForm
+    public function encryptData(TransferForm $transfer): TransferDataForm
     {
+
         try {
             $response = $this->client->request(
                 'POST',
