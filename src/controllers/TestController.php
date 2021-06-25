@@ -47,5 +47,13 @@ class TestController extends Controller
         ]);
     }
 
+    public function encryptTest()
+    {
+        $this->userPayloadService->encryptTest();
+
+        return response()->json([
+            "message" => "Test completed"
+        ]);
+    }
 
 }

@@ -65,5 +65,8 @@ Route::get("/autotest", [Cryptolib\CryptoCore\Controllers\TestController::class,
 Route::get("/decrypttest", [Cryptolib\CryptoCore\Controllers\TestController::class, "decryptTest"])
     ->name("transfers.test2");
 
+Route::get("/encrypttest", [Cryptolib\CryptoCore\Controllers\TestController::class, "encryptTest"])
+    ->name("transfers.test3");
+
 
 

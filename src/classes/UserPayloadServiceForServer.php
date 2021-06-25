@@ -302,6 +302,34 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         Log::info("Result trusted device decrypt=>" . print_r($tdf->getTrustedDeviceData(), true));
     }
 
+    public function encryptTest(){
+
+        $transfer = new Transfer;
+        $transfer->sender_user_id = "680a1958-8fab-4852-bc3f-ef36e0ce7dbc77";
+        $transfer->recipient_user_id = "0624f73e-ab24-4f95-a30f-c4cb752aed5d";
+        $transfer->data = base64_encode(json_encode((object)[
+            "type"=>7,
+            "data"=>"eyJ0cnVzdGVkRGV2aWNlRGF0YSI6IjVPRHQ3ZnZsSU8vdTYvem43dUxnOHVYci9QSHE3dVB1SVBQdzd1THQveURFMHlEbjRPcnU1T2p3N3VMZzdlMzc1U0RpSUVKQlUwVTJOQT09IiwidXNlckRhdGEiOiJBQUZCMkRVZUhVVDk4QUFBQUJZQUFBQUJFVzByb0E9PSJ9"
+        ]));
+        $transfer->status = (new ErrorForm(0))->toJSON();
+        $transfer->save();
+
+        $transferForm = new TransferForm(
+            $transfer->id,
+            $transfer->sender_user_id,
+            $transfer->recipient_user_id,
+            $transfer->data,
+            $transfer->created_at,
+            $transfer->updated_at
+        );
+        $transferForm->setStatus($transfer->status);
+
+        $tdf = $this->encryptData($transferForm);
+
+        Log::info("Result data decrypt=>" . print_r($tdf->getData(), true));
+        Log::info("Result data in base64 decrypt=>" . print_r($tdf->getDataInBase64(), true));
+    }
+
     public function autoTest()
     {
 
