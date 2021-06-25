@@ -74,10 +74,10 @@ class EncryptedDataForm
         ];
     }
 
-    public function toBase64JSON(): String
-    {
-        return base64_encode($this->toJSON());
+    public function toBase64JSON() {
+        return base64_encode(json_encode($this->toJSON()));
     }
+
 
 
 }
