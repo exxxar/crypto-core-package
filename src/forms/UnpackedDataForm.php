@@ -40,7 +40,10 @@ class UnpackedDataForm
 
         $this->size = unpack("N", $this->inputData, 10);
 
-        switch ($this->command) {
+        $this->payloadData = unpack("N", $this->inputData, 14);
+        $this->checksum = unpack("N", $this->inputData, 18);
+
+      /*  switch ($this->command) {
             case 0:
                 $this->payloadData = substr($this->inputData, 12, strlen($this->inputData) - 16);
                 $this->checksum = unpack("N", $this->inputData, strlen($this->inputData) - 4);
@@ -49,7 +52,7 @@ class UnpackedDataForm
                 $this->payloadData = unpack("N", $this->inputData, 14);
                 $this->checksum = unpack("N", $this->inputData, 18);
                 break;
-        }
+        }*/
 
 
     }
@@ -105,7 +108,7 @@ class UnpackedDataForm
     /**
      * @return array|false
      */
-    public function getPayloadData(): string
+    public function getPayloadData()
     {
         return $this->payloadData;
     }
