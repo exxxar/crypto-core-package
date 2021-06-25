@@ -15,9 +15,12 @@ class PackedDataForm
 
     public function __construct(int $outputNumer, bool $isUnblockingAllowed)
     {
-        $checksumUserData = crc32(0x8000 . "" . (new Carbon())->timestamp . "17" . $outputNumer);
 
         $outputPayload = $isUnblockingAllowed ? 0x01 : 0x00;
+
+        $checksumUserData = crc32(0x8000 . "" . (new Carbon())->timestamp . "17" . $outputPayload);
+
+
 
         $this->outputUserData = pack("nJNCN", 0x8000,
             (new Carbon())->timestamp,
@@ -27,7 +30,7 @@ class PackedDataForm
         );
 
 
-        $checksumTrustedDeviceData = crc32(0x4001 . "" . (new Carbon())->timestamp . "22" . $outputPayload);
+        $checksumTrustedDeviceData = crc32(0x4001 . "" . (new Carbon())->timestamp . "22" . $outputNumer);
 
         $this->outputTrustedDeviceData = pack("nJNNN", 0x4001,
             (new Carbon())->timestamp,
