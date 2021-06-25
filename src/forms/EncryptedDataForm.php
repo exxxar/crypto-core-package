@@ -12,7 +12,7 @@ class EncryptedDataForm
 
     public function __construct()
     {
-        $this->type = -1;
+        $this->type = 7;
         $this->userData = "";
         $this->trustedDeviceData = null;
 
@@ -69,7 +69,8 @@ class EncryptedDataForm
     public function toJSON()
     {
         return (object)[
-            "userData" => $this->getUserData()??base64_encode(""),
+            "type" => $this->getType(),
+            "userData" => $this->getUserData() ?? base64_encode(""),
             "trustedDeviceData" => $this->getTrustedDeviceData() ?? base64_encode("")
         ];
     }

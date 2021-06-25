@@ -6,6 +6,7 @@ namespace Cryptolib\CryptoCore\Classes;
 use Cryptolib\CryptoCore\forms\EncryptedDataForm;
 use Cryptolib\CryptoCore\forms\ErrorForm;
 use Cryptolib\CryptoCore\forms\HandlerResultForm;
+use Cryptolib\CryptoCore\forms\PackedDataForm;
 use Cryptolib\CryptoCore\forms\PayloadDataForm;
 use Cryptolib\CryptoCore\Forms\TransferDataForm;
 use Cryptolib\CryptoCore\Forms\TransferForm;
@@ -212,13 +213,13 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $tdf;
     }
 
-    public function encryptData(TransferForm $transfer): TransferDataForm
+    public function encryptData(EncryptedDataForm $transfer): String
     {
 
         try {
             $response = $this->client->request(
                 'POST',
-                "$this->url/cryptolib/server/encryptedDataRequest",
+                "http://localhost:8080/crypto-service/cryptolib/server/encryptedDataRequest",
                 [
                     'headers' => [
                         'Accept' => 'application/json',
@@ -231,13 +232,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         } catch (\Exception $e) {
 
         }
-        $tmp = (object)$this->getContent($response);
-
-        Log::info("encryptData=>" . print_r($tmp, true));
-        $tdf = new TransferDataForm;
-        $tdf->setData(isset($tmp->data) ? $tmp->data : "");
-        $tdf->setType($tmp->type);
-        return $tdf;
+        return base64_encode(json_encode($this->getContent($response)));
     }
 
     public function decryptData(TransferForm $transfer): PayloadDataForm
@@ -304,30 +299,29 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
     public function encryptTest(){
 
+
+        $edf = new EncryptedDataForm();
+
+        $edf->setPackedDataForm(new PackedDataForm(1,true));
+
+        $edf->setType(7);
+
+        Log::info(print_r($edf->toJson(),true));
+
+
+        $base64EncodedData = $this->encryptData($edf);
+
+        Log::info(print_r($base64EncodedData,true));
+
         $transfer = new Transfer;
-        $transfer->sender_user_id = "680a1958-8fab-4852-bc3f-ef36e0ce7dbc77";
-        $transfer->recipient_user_id = "0624f73e-ab24-4f95-a30f-c4cb752aed5d";
-        $transfer->data = base64_encode(json_encode((object)[
-            "type"=>7,
-            "data"=>"eyJ0cnVzdGVkRGV2aWNlRGF0YSI6IjVPRHQ3ZnZsSU8vdTYvem43dUxnOHVYci9QSHE3dVB1SVBQdzd1THQveURFMHlEbjRPcnU1T2p3N3VMZzdlMzc1U0RpSUVKQlUwVTJOQT09IiwidXNlckRhdGEiOiJBQUZCMkRVZUhVVDk4QUFBQUJZQUFBQUJFVzByb0E9PSJ9"
-        ]));
+        $transfer->sender_user_id = "0624f73e-ab24-4f95-a30f-c4cb752aed5d";
+        $transfer->recipient_user_id = "680a1958-8fab-4852-bc3f-ef36e0ce7dbc77";
+        $transfer->data = $base64EncodedData;
         $transfer->status = (new ErrorForm(0))->toJSON();
         $transfer->save();
 
-        $transferForm = new TransferForm(
-            $transfer->id,
-            $transfer->sender_user_id,
-            $transfer->recipient_user_id,
-            $transfer->data,
-            $transfer->created_at,
-            $transfer->updated_at
-        );
-        $transferForm->setStatus($transfer->status);
 
-        $tdf = $this->encryptData($transferForm);
-
-        Log::info("Result data decrypt=>" . print_r($tdf->getData(), true));
-        Log::info("Result data in base64 decrypt=>" . print_r($tdf->getDataInBase64(), true));
+        Log::info("Result data encrypt=>" . print_r($transfer->data, true));
     }
 
     public function autoTest()

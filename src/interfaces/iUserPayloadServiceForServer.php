@@ -24,7 +24,7 @@ interface iUserPayloadServiceForServer
 
     public function decryptData(TransferForm $transfer):PayloadDataForm ;
 
-    public function encryptData(TransferForm $transfer): TransferDataForm;
+    public function encryptData(EncryptedDataForm $transfer): String;
 
 
 }
