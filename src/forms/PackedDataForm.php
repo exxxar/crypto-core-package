@@ -28,11 +28,10 @@ class PackedDataForm
 
         $this->outputUserData = $pack . int_helper::uInt32($checksumUserData, true);
 
-
         $pack = int_helper::uInt16(0x4001, true)
             . int_helper::uInt64((new Carbon())->timestamp, true)
-            . int_helper::uInt32(22, true)
-            . int_helper::uInt32($outputNumer, true);
+            . int_helper::uInt32(17, true)
+            . int_helper::uInt8($outputNumer, true);
 
         $checksumTrustedDeviceData = crc32($pack);
 
