@@ -19,7 +19,7 @@ class PackedDataForm
 
         $outputPayload = $isUnblockingAllowed ? 0x01 : 0x00;
 
-        $pack = 0x8000
+        $pack = int_helper::uInt16(0x8000, true)
             . int_helper::uInt64((new Carbon())->timestamp, true)
             . int_helper::uInt32(17, true)
             . int_helper::uInt8($outputPayload);
@@ -28,7 +28,8 @@ class PackedDataForm
 
         $this->outputUserData = $pack . int_helper::uInt32($checksumUserData, true);
 
-        $pack = 0x4001
+
+        $pack = int_helper::uInt16(0x4001, true)
             . int_helper::uInt64((new Carbon())->timestamp, true)
             . int_helper::uInt32(22, true)
             . int_helper::uInt32($outputNumer, true);
