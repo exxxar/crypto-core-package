@@ -19,32 +19,24 @@ class PackedDataForm
 
         $outputPayload = $isUnblockingAllowed ? 0x01 : 0x00;
 
-        $checksumUserData = crc32(0x8000
+        $pack = int_helper::uInt16(0x8000, true)
             . int_helper::uInt64((new Carbon())->timestamp, true)
             . int_helper::uInt32(17, true)
-            . int_helper::uInt8($outputPayload)
-        );
+            . int_helper::uInt8($outputPayload);
 
-        $this->outputUserData = pack("nJNCN", 0x8000,
-            (new Carbon())->timestamp,
-            17,
-            $outputPayload,
-            $checksumUserData
-        );
+        $checksumUserData = crc32($pack);
+
+        $this->outputUserData = $pack . int_helper::uInt32($checksumUserData, true);
 
 
-        $checksumTrustedDeviceData = crc32(0x4001
+        $pack = int_helper::uInt16(0x4001, true)
             . int_helper::uInt64((new Carbon())->timestamp, true)
             . int_helper::uInt32(22, true)
-            . int_helper::uInt32($outputNumer, true)
-        );
+            . int_helper::uInt32($outputNumer, true);
 
-        $this->outputTrustedDeviceData = pack("nJNNN", 0x4001,
-            (new Carbon())->timestamp,
-            22,
-            $outputNumer,
-            $checksumTrustedDeviceData
-        );
+        $checksumTrustedDeviceData = crc32($pack);
+
+        $this->outputTrustedDeviceData = $pack . int_helper::uInt32($checksumTrustedDeviceData, true);
 
         if ($this->outputUserData === false)
             $this->outputUserData = "";
