@@ -94,12 +94,14 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $tdf;
     }
 
-    public function handler(TransferForm $transfer): HandlerResultForm
+    public function handler(String $trustedDevicePublicId, TransferForm $transfer): HandlerResultForm
     {
+        $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
+
         try {
             $response = $this->client->request(
                 'POST',
-                "$this->url/cryptolib/server/handler",
+                "$this->url/cryptolib/server/handler/$trustedDevicePublicId",
                 [
                     'headers' => [
                         'Accept' => 'application/json',
@@ -213,13 +215,13 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $tdf;
     }
 
-    public function encryptData(EncryptedDataForm $transfer): String
+    public function encryptData(String $trustedDevicePublicId, EncryptedDataForm $transfer): String
     {
-
+        $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
         try {
             $response = $this->client->request(
                 'POST',
-                "$this->url/cryptolib/server/encryptedDataRequest",
+                "$this->url/cryptolib/server/encryptedDataRequest/$trustedDevicePublicId",
                 [
                     'headers' => [
                         'Accept' => 'application/json',
@@ -235,13 +237,15 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return base64_encode(json_encode($this->getContent($response)));
     }
 
-    public function decryptData(TransferForm $transfer): PayloadDataForm
+    public function decryptData(String $trustedDevicePublicId, TransferForm $transfer): PayloadDataForm
     {
+        $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
+
         try {
 
             $response = $this->client->request(
                 'POST',
-                "$this->url/cryptolib/server/dataRequest",
+                "$this->url/cryptolib/server/dataRequest/$trustedDevicePublicId",
                 [
                     'headers' => [
                         'Accept' => 'application/json',

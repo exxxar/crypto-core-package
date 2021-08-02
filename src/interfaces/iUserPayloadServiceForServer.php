@@ -16,15 +16,15 @@ interface iUserPayloadServiceForServer
 
     public function onceEncryptedRequest(): TransferDataForm;
 
-    public function handler(TransferForm $transfer): HandlerResultForm;
+    public function handler(String $trustedDevicePublicId, TransferForm $transfer): HandlerResultForm;
 
     public function twiceEncryptedRequest(TransferDataForm $transfer): TransferDataForm;
 
     public function twiceEncryptedPermission(TransferDataForm $transfer): TransferDataForm;
 
-    public function decryptData(TransferForm $transfer):PayloadDataForm ;
+    public function decryptData(String $trustedDevicePublicId, TransferForm $transfer): PayloadDataForm;
 
-    public function encryptData(EncryptedDataForm $transfer): String;
+    public function encryptData(String $trustedDevicePublicId, EncryptedDataForm $transfer): String;
 
 
 }
