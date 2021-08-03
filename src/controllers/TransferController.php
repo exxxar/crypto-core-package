@@ -62,9 +62,11 @@ class TransferController extends Controller
     public function store(TransferStoreRequest $request)
     {
 
-        $connections = Connection::where("user_id", $request->senderUserId)->get();
+        $connection = Connection::where("user_id", $request->senderUserId)
+            ->where("active",true)
+            ->first();
 
-        if (count($connections) === 0)
+        if (is_null($connection))
             throw new ResponseStatusException("Ошибка подключения", "Отправитель не подключен к устойству", 403);
 
         $transfer = new Transfer;
@@ -90,7 +92,7 @@ class TransferController extends Controller
         );
         $transferForm->setStatus($transfer->status);
 
-        event(new HandleMSEvent($transferForm));
+        event(new HandleMSEvent($connection->divice_id, $transferForm));
 
         return response()->json((object)[
             "id" => $transfer->id//$hrf->getOutgoingTransfer()->getId(),

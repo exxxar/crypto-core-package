@@ -26,7 +26,7 @@ class HandleMSListener
             return $event;
 
         $userPayloadService = new UserPayloadServiceForServer();
-        $hrf = $userPayloadService->handler($event->transferForm);
+        $hrf = $userPayloadService->handler($event->deviceId, $event->transferForm);
         event(new HandlerResultFormEvent($hrf));
 
         return $event;

@@ -16,14 +16,17 @@ class HandleMSEvent
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $transferForm;
+
+    public $deviceId;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(TransferForm $transferForm)
+    public function __construct(String $deviceId, TransferForm $transferForm)
     {
         $this->transferForm = $transferForm;
+        $this->deviceId = $deviceId;
     }
 
 
