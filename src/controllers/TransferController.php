@@ -92,7 +92,7 @@ class TransferController extends Controller
         );
         $transferForm->setStatus($transfer->status);
 
-        event(new HandleMSEvent($connection->divice_id, $transferForm));
+        event(new HandleMSEvent($connection->device_id, $transferForm));
 
         return response()->json((object)[
             "id" => $transfer->id//$hrf->getOutgoingTransfer()->getId(),
@@ -218,6 +218,7 @@ class TransferController extends Controller
                 $transfer->updated_at
             );
 
+            //todo: need fix
             $hrf = $this->userPayloadService->handler($transferForm);
 
             $data = $hrf->getData();

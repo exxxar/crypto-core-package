@@ -23,7 +23,7 @@ class HandleMSEvent
      *
      * @return void
      */
-    public function __construct(String $deviceId, TransferForm $transferForm)
+    public function __construct($deviceId, TransferForm $transferForm)
     {
         $this->transferForm = $transferForm;
         $this->deviceId = $deviceId;
