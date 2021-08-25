@@ -63,7 +63,7 @@ class TransferController extends Controller
     {
 
         $connection = Connection::where("user_id", $request->senderUserId)
-            ->where("active",true)
+            ->where("active", true)
             ->first();
 
         if (is_null($connection))
@@ -92,7 +92,11 @@ class TransferController extends Controller
         );
         $transferForm->setStatus($transfer->status);
 
-        event(new HandleMSEvent($connection->device_id, $transferForm));
+        event(new HandleMSEvent(
+                config("crypto.is_multiconnect") && !is_null($connection->deviceId) ?
+                    $connection->device_id : null,
+                $transferForm)
+        );
 
         return response()->json((object)[
             "id" => $transfer->id//$hrf->getOutgoingTransfer()->getId(),
@@ -109,7 +113,7 @@ class TransferController extends Controller
         $transfers_tmp = [];
 
         foreach ($transfers as $transfer)
-            if ($transfer->status->type==0)
+            if ($transfer->status->type == 0)
                 array_push($transfers_tmp, new TransferResource($transfer));
 
 

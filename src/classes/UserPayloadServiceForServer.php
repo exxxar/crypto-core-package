@@ -94,14 +94,18 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $tdf;
     }
 
-    public function handler(String $trustedDevicePublicId, TransferForm $transfer): HandlerResultForm
+    public function handler(TransferForm $transfer, String $trustedDevicePublicId = null): HandlerResultForm
     {
-        $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
+        if (config("crypto.is_multiconnect") && !is_null($trustedDevicePublicId))
+            $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
+        else
+            $trustedDevicePublicId = null;
 
         try {
             $response = $this->client->request(
                 'POST',
-                "$this->url/cryptolib/server/handler/$trustedDevicePublicId",
+                (is_null($trustedDevicePublicId) ? "$this->url/cryptolib/server/handler" :
+                    "$this->url/cryptolib/server/handler/$trustedDevicePublicId"),
                 [
                     'headers' => [
                         'Accept' => 'application/json',
@@ -215,13 +219,21 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $tdf;
     }
 
-    public function encryptData(String $trustedDevicePublicId, EncryptedDataForm $transfer): String
+    public function encryptData(EncryptedDataForm $transfer, String $trustedDevicePublicId = null): String
     {
-        $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
+        if (config("crypto.is_multiconnect") && !is_null($trustedDevicePublicId))
+            $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
+        else
+            $trustedDevicePublicId = null;
+
+
         try {
             $response = $this->client->request(
                 'POST',
-                "$this->url/cryptolib/server/encryptedDataRequest/$trustedDevicePublicId",
+                (is_null($trustedDevicePublicId) ?
+                    "$this->url/cryptolib/server/encryptedDataRequest" :
+                    "$this->url/cryptolib/server/encryptedDataRequest/$trustedDevicePublicId")
+                ,
                 [
                     'headers' => [
                         'Accept' => 'application/json',
@@ -237,15 +249,23 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return base64_encode(json_encode($this->getContent($response)));
     }
 
-    public function decryptData(String $trustedDevicePublicId, TransferForm $transfer): PayloadDataForm
+    public function decryptData(TransferForm $transfer, String $trustedDevicePublicId = null): PayloadDataForm
     {
-        $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
+        if (config("crypto.is_multiconnect") && !is_null($trustedDevicePublicId))
+            $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
+        else
+            $trustedDevicePublicId = null;
+
 
         try {
 
             $response = $this->client->request(
                 'POST',
-                "$this->url/cryptolib/server/dataRequest/$trustedDevicePublicId",
+                (is_null($trustedDevicePublicId) ?
+                    "$this->url/cryptolib/server/dataRequest" :
+                    "$this->url/cryptolib/server/dataRequest/$trustedDevicePublicId"
+                ),
+
                 [
                     'headers' => [
                         'Accept' => 'application/json',
@@ -263,7 +283,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         Log::info("decryptData=>" . print_r($tmp->data, true));
 
         $tdf = new TransferDataForm;
-        $tdf->setData( $tmp->data);
+        $tdf->setData($tmp->data);
         $tdf->setType($tmp->type);
 
         $payload = json_decode($tdf->getData());
@@ -276,7 +296,8 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $pdf;
     }
 
-    public function decryptTest(){
+    public function decryptTest()
+    {
 
         $transfer = new Transfer;
         $transfer->sender_user_id = "0624f73e-ab24-4f95-a30f-c4cb752aed5d";
@@ -301,21 +322,22 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         Log::info("Result trusted device decrypt=>" . print_r($tdf->getTrustedDeviceData(), true));
     }
 
-    public function encryptTest(){
+    public function encryptTest()
+    {
 
 
         $edf = new EncryptedDataForm();
 
-        $edf->setPackedDataForm(new PackedDataForm(1,true));
+        $edf->setPackedDataForm(new PackedDataForm(1, true));
 
         $edf->setType(7);
 
-        Log::info(print_r($edf->toJson(),true));
+        Log::info(print_r($edf->toJson(), true));
 
 
         $base64EncodedData = $this->encryptData($edf);
 
-        Log::info(print_r($base64EncodedData,true));
+        Log::info(print_r($base64EncodedData, true));
 
         $transfer = new Transfer;
         $transfer->sender_user_id = "0624f73e-ab24-4f95-a30f-c4cb752aed5d";
