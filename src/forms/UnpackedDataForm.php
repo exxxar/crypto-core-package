@@ -105,9 +105,7 @@ class UnpackedDataForm
     }
 
 
-    /**
-     * @return array|false
-     */
+
     public function getPayloadData()
     {
         return $this->payloadData;
