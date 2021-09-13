@@ -108,7 +108,7 @@ class UnpackedDataForm
 
     public function getPayloadData()
     {
-        return $this->payloadData;
+        return  is_array($this->payloadData) ? $this->payloadData[1] : $this->payloadData;
     }
 
 
