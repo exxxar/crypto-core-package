@@ -99,6 +99,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         if (config("crypto.is_multiconnect") )
             $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
 
+        Log::info("Start handling=>$this->url/cryptolib/server/handler");
 
         try {
             $response = $this->client->request(
@@ -115,12 +116,12 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             );
 
         } catch (\Exception $e) {
-
+            Log::info("error handler".$e->getMessage());
         }
 
         $content = (object)$this->getContent($response);
 
-        Log::info("handler=>" . print_r($content, true));
+        Log::info("End handling=>" . print_r($content, true));
 
         $content->incomingTransfer = (object)$content->incomingTransfer;
         $content->incomingTransfer->status = (object)$content->incomingTransfer->status;
@@ -223,6 +224,9 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         if (config("crypto.is_multiconnect") )
             $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
 
+        Log::info("Start encryptData=>$this->url/cryptolib/server/encryptedDataRequest");
+
+
         try {
             $response = $this->client->request(
                 'POST',
@@ -237,8 +241,11 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             );
 
         } catch (\Exception $e) {
-
+            Log::info("error encryptData".$e->getMessage());
         }
+
+
+        Log::info("End encryptData");
         return base64_encode(json_encode($this->getContent($response)));
     }
 
@@ -247,6 +254,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         if (config("crypto.is_multiconnect"))
             $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
 
+        Log::info("Start decryptData=>$this->url/cryptolib/server/encryptedDataRequest");
         try {
 
             $response = $this->client->request(
@@ -262,11 +270,11 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
             );
 
         } catch (\Exception $e) {
-
+            Log::info("error decryptData=>".$e->getMessage());
         }
         $tmp = (object)$this->getContent($response);
 
-        Log::info("decryptData=>" . print_r($tmp->data, true));
+        Log::info("end decryptData=>" . print_r($tmp->data, true));
 
         $tdf = new TransferDataForm;
         $tdf->setData($tmp->data);
