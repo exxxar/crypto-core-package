@@ -96,16 +96,15 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
     public function handler(TransferForm $transfer, String $trustedDevicePublicId = null): HandlerResultForm
     {
-        if (config("crypto.is_multiconnect") && !is_null($trustedDevicePublicId))
+        if (config("crypto.is_multiconnect") )
             $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
-        else
-            $trustedDevicePublicId = null;
+
 
         try {
             $response = $this->client->request(
                 'POST',
-                (is_null($trustedDevicePublicId) ? "$this->url/cryptolib/server/handler" :
-                    "$this->url/cryptolib/server/handler/$trustedDevicePublicId"),
+                 "$this->url/cryptolib/server/handler",
+
                 [
                     'headers' => [
                         'Accept' => 'application/json',
@@ -221,19 +220,13 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
     public function encryptData(EncryptedDataForm $transfer, String $trustedDevicePublicId = null): String
     {
-        if (config("crypto.is_multiconnect") && !is_null($trustedDevicePublicId))
+        if (config("crypto.is_multiconnect") )
             $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
-        else
-            $trustedDevicePublicId = null;
-
 
         try {
             $response = $this->client->request(
                 'POST',
-                (is_null($trustedDevicePublicId) ?
-                    "$this->url/cryptolib/server/encryptedDataRequest" :
-                    "$this->url/cryptolib/server/encryptedDataRequest/$trustedDevicePublicId")
-                ,
+                "$this->url/cryptolib/server/encryptedDataRequest",
                 [
                     'headers' => [
                         'Accept' => 'application/json',
@@ -251,21 +244,14 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
 
     public function decryptData(TransferForm $transfer, String $trustedDevicePublicId = null): PayloadDataForm
     {
-        if (config("crypto.is_multiconnect") && !is_null($trustedDevicePublicId))
+        if (config("crypto.is_multiconnect"))
             $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
-        else
-            $trustedDevicePublicId = null;
-
 
         try {
 
             $response = $this->client->request(
                 'POST',
-                (is_null($trustedDevicePublicId) ?
-                    "$this->url/cryptolib/server/dataRequest" :
-                    "$this->url/cryptolib/server/dataRequest/$trustedDevicePublicId"
-                ),
-
+                "$this->url/cryptolib/server/dataRequest",
                 [
                     'headers' => [
                         'Accept' => 'application/json',
