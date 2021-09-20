@@ -254,7 +254,7 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         if (config("crypto.is_multiconnect"))
             $trustedDevicePublicId = base64_encode($trustedDevicePublicId);
 
-        Log::info("Start decryptData=>$this->url/cryptolib/server/encryptedDataRequest");
+        Log::info("Start decryptData=>$this->url/cryptolib/server/dataRequest");
         try {
 
             $response = $this->client->request(
