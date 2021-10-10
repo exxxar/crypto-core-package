@@ -42,6 +42,28 @@ class UserPayloadServiceForServer implements iUserPayloadServiceForServer
         return $content;
     }
 
+
+
+    public function getTrustedDeviceList():array{
+        try {
+            $response = $this->client->request(
+                'GET',
+                "$this->url/cryptolib/server/trusted-devices/all",
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'X-API-VERSION' => '0.0.3'
+                    ],
+                ]
+            );
+
+        } catch (\Exception $e) {
+
+        }
+
+        return (array)$this->getContent($response);
+    }
+
     public function getTrustedDevicePublicId(): TransferDataForm
     {
         try {

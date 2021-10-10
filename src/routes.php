@@ -57,16 +57,8 @@ Route::post("/transfer/status/{transferId}", [Cryptolib\CryptoCore\Controllers\T
     ->name("transfers.status")
     ->where(["transferId" => "[0-9]{1,100}"])->middleware(["x-api:0.0.3"]);
 
-Route::get("/autotest", [Cryptolib\CryptoCore\Controllers\TestController::class, "autoTest"])
-    ->name("transfers.test")
-    ->middleware(["x-api:0.0.3"]);
-
-
-Route::get("/decrypttest", [Cryptolib\CryptoCore\Controllers\TestController::class, "decryptTest"])
-    ->name("transfers.test2");
-
-Route::get("/encrypttest", [Cryptolib\CryptoCore\Controllers\TestController::class, "encryptTest"])
-    ->name("transfers.test3");
+Route::get("/trusted-devices/list", [Cryptolib\CryptoCore\Controllers\TrustedDeviceController::class, "getTrustedDeviceList"])
+    ->name("trusted-device.list");
 
 
 

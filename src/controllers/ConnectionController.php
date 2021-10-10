@@ -130,6 +130,7 @@ class ConnectionController extends Controller
      *
      * @param \App\Models\Connection $connection
      * @return \Illuminate\Http\Response
+     * @throws ResponseStatusException
      */
     public function destroy($userId, $deviceId)
     {
