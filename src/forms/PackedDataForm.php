@@ -47,6 +47,17 @@ class PackedDataForm
 
     public function initForSettings(int $id = 2,string $configData = "")
     {
+        $outputPayload = 0x00;
+
+        $pack = int_helper::uInt16(0x8000, true)
+            . int_helper::uInt64((new Carbon())->timestamp, true)
+            . int_helper::uInt32(19, true)
+            . int_helper::uInt8($outputPayload);
+
+        $checksumUserData = crc32($pack);
+
+        $this->outputUserData = $pack . int_helper::uInt32($checksumUserData, true);
+
         $payload = int_helper::uInt16($id, true)
             . int_helper::uInt16(strlen($configData))
             . $configData;
