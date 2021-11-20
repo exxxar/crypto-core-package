@@ -45,6 +45,22 @@ class PackedDataForm
 
     }
 
+    public function initForSettings(int $id = 2,string $configData = "")
+    {
+        $payload = int_helper::uInt16($id, true)
+            . int_helper::uInt16(strlen($configData))
+            . $configData;
+
+        $pack = int_helper::uInt16(0x4000, true)
+            . int_helper::uInt64((new Carbon())->timestamp, true)
+            . int_helper::uInt32(18 + strlen($payload), true) //длина всех полей
+            . $payload; //олезная нагрузка
+
+        $checksumTrustedDeviceData = crc32($pack);
+
+        $this->outputTrustedDeviceData = $pack . int_helper::uInt32($checksumTrustedDeviceData, true);
+    }
+
     public function getOutputUserData()
     {
         return base64_encode($this->outputUserData);
