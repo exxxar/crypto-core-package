@@ -47,12 +47,10 @@ class PackedDataForm
 
     public function initForSettings(int $id = 2,string $configData = "")
     {
-        $outputPayload = 0x00;
 
         $pack = int_helper::uInt16(0x8001, true)
             . int_helper::uInt64((new Carbon())->timestamp, true)
-            . int_helper::uInt32(19, true)
-            . int_helper::uInt8($outputPayload);
+            . int_helper::uInt32(18, true);
 
         $checksumUserData = crc32($pack);
 
