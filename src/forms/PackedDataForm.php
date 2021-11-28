@@ -57,7 +57,7 @@ class PackedDataForm
         $this->outputUserData = $pack . int_helper::uInt32($checksumUserData, true);
 
         $payload = int_helper::uInt16($id, true)
-            . int_helper::uInt16(strlen($configData))
+            . int_helper::uInt16(strlen($configData), true)
             . $configData;
 
         $pack = int_helper::uInt16(0x4000, true)
